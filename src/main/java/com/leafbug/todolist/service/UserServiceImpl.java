@@ -1,5 +1,8 @@
 package com.leafbug.todolist.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,14 +22,14 @@ public class UserServiceImpl implements UserService {
 	
 	//로그인 id, pwd 대조
 	@Override
-	public User findUser(User user) throws Exception {
-		return userDAO.select(user);
+	public User findUser(String id) throws Exception {
+		return userDAO.select(id);
 	}
 	
 	//user 삭제
 	@Override
-	public int removeUser(User user) throws Exception {
-		return userDAO.delete(user);
+	public int removeUser(String id) throws Exception {
+		return userDAO.delete(id);
 	}
 	
 }

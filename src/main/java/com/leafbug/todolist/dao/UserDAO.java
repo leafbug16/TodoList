@@ -8,9 +8,9 @@ public interface UserDAO {
 	int insert(User user) throws Exception;
 
 	//로그인 id, pwd 대조 체크
-	User select(User user) throws Exception;
+	User select(String id) throws Exception;
 	
 	//유저 삭제
-	int delete(User user) throws Exception;
+	int delete(String id) throws Exception;
 
 }

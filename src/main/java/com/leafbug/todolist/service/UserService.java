@@ -8,9 +8,9 @@ public interface UserService {
 	int addUser(User user) throws Exception;
 
 	//로그인 id, pwd 대조
-	User findUser(User user) throws Exception;
+	User findUser(String id) throws Exception;
 
 	//user 삭제
-	int removeUser(User user) throws Exception;
+	int removeUser(String id) throws Exception;
 
 }

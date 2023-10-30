@@ -24,7 +24,11 @@ public class LoginController {
 	UserService userService;
 	
 	@GetMapping("/form")
-	public String loginForm() {
+	public String loginForm(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("id")!=null && !session.getAttribute("id").equals("")) {
+			return "home";
+		}
 		return "login";
 	}
 	

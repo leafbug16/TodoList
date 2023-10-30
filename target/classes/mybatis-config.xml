@@ -5,7 +5,6 @@
 		
 <configuration>
 	<typeAliases>
-		<typeAlias alias="BoardDto" type="com.greenart.mybatis.model.BoardDto"/>
-		<typeAlias alias="UserDto" type="com.greenart.mybatis.model.User"/>
+		<typeAlias alias="User" type="com.leafbug.todolist.model.User"/>
 	</typeAliases>
 </configuration>

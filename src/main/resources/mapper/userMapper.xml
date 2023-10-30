@@ -3,6 +3,19 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
         
 <mapper namespace = "userMapper">
+	<!-- 회원가입 시 유저 정보 저장 -->
+	<insert id="insert" parameterType="User">
+		INSERT INTO user(id, pwd, email) VALUES(#{id}, #{pwd}, #{email})
+	</insert>
 	
-
+	<!-- 로그인 시 유저 정보 가져오기 -->
+	<select id="select" parameterType="User" resultType="User">
+		SELECT FROM user WHERE id = #{id};
+	</select>
+	
+	<!-- 유저 삭제 -->
+	<delete id="delete" parameterType="User">
+		DELETE FROM user WHRE ID = #{id};
+	</delete>
+	
 </mapper>

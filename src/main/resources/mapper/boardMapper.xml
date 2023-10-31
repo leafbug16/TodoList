@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace는 이름을 구분하기 위한 공간이다 id는 충분히 겹칠 수 있다-->
+<mapper namespace = "boardMapper">
+	<!-- sql 선언 -->
+	<sql id="selectFromBoard">
+       SELECT * FROM board
+   	</sql>
+   	
+   	<sql id="searchCondition">
+   		<choose>
+   			<when test='option=="T"'>
+   				AND title LIKE CONCAT('%', #{keyword}, '%')
+   			</when>
+   			<when test='option=="W"'>
+   				AND writer LIKE CONCAT('%', #{keyword}, '%')
+   			</when>
+   			<otherwise>
+   				AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%'))
+   			</otherwise>
+   		</choose>
+   	</sql>
+   	
+   	<!-- 검색조건에 맞는 게시글 리스트 조회 (모든 게시글) -->
+	<select id="searchSelectPageAll" parameterType="SearchCondition" resultType="Board">
+        <include refid="selectFromBoard"/>
+        WHERE true
+        <include refid="searchCondition"/>
+        ORDER BY regDate DESC, bno DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+    
+    <!-- 검색조건에 맞는 게시글 리스트 조회 (가이드)-->
+	<select id="searchSelectPageGuide" parameterType="SearchCondition" resultType="Board">
+        <include refid="selectFromBoard"/>
+        WHERE boardType = "guide"
+        <include refid="searchCondition"/>
+        ORDER BY regDate DESC, bno DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+    
+    <!-- 검색조건에 맞는 게시글 리스트 조회 (공지사항)-->
+	<select id="searchSelectPageNotice" parameterType="SearchCondition" resultType="Board">
+        <include refid="selectFromBoard"/>
+        where boardType="notice"
+        <include refid="searchCondition"/>
+        ORDER BY regDate DESC, bno DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+    
+    <!-- 검색조건에 맞는 게시글 리스트 조회 (자유게시판) -->
+	<select id="searchSelectPageFree" parameterType="SearchCondition" resultType="Board">
+        <include refid="selectFromBoard"/>
+        where boardType="free"
+        <include refid="searchCondition"/>
+        ORDER BY regDate DESC, bno DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+	
+	<!-- 검색조건에 맞는 게시글 수 조회 (전체) -->
+    <select id="searchResultCntAll" parameterType="SearchCondition" resultType="int">
+		select count(*) from board
+        where true
+        <include refid="searchCondition"/>
+    </select>
+    
+    <select id="searchResultCntGuide" parameterType="SearchCondition" resultType="int">
+		select count(*) from board
+        where boardType = "guide"
+        <include refid="searchCondition"/>
+    </select>
+    
+    <select id="searchResultCntNotice" parameterType="SearchCondition" resultType="int">
+		select count(*) from board
+        where boardType = "notice"
+        <include refid="searchCondition"/>
+    </select>
+    
+    <select id="searchResultCntFree" parameterType="SearchCondition" resultType="int">
+		select count(*) from board
+        where boardType = "free"
+        <include refid="searchCondition"/>
+    </select>
+	
+	<!-- 게시글 상세보기 -->
+	<select id="select" parameterType="int" resultType="Board">
+		select * from board 
+		where bno = #{bno}
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="increaseViews" parameterType="int">
+		update board
+		set views = views + 1
+		where bno = #{bno}
+	</update>
+
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

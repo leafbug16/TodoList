@@ -6,5 +6,7 @@
 <configuration>
 	<typeAliases>
 		<typeAlias alias="User" type="com.leafbug.todolist.model.User"/>
+		<typeAlias alias="Board" type="com.leafbug.todolist.model.Board"/>
+		<typeAlias alias="SearchCondition" type="com.leafbug.todolist.model.SearchCondition"/>
 	</typeAliases>
 </configuration>

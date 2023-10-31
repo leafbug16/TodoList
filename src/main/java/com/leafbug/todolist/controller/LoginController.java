@@ -27,9 +27,9 @@ public class LoginController {
 	public String loginForm(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("id")!=null && !session.getAttribute("id").equals("")) {
-			return "home";
+			return "redirect:/todoList/main";
 		}
-		return "login";
+		return "index";
 	}
 	
 	@PostMapping("/action")
@@ -52,13 +52,14 @@ public class LoginController {
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("id", id);
-		return "home";
+		session.setMaxInactiveInterval(60*60*24*365);
+		return "redirect:/todoList/main";
 	}
 	
 	@GetMapping("/logout")
 	public String logout(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		session.invalidate();
-		return "redirect:/";
+		return "redirect:/login/form";
 	}
 }

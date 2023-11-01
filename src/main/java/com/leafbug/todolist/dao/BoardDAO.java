@@ -29,4 +29,6 @@ public interface BoardDAO {
 
 	int insert(Board board) throws Exception;
 
+	int update(Board board) throws Exception;
+
 }

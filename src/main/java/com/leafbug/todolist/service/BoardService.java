@@ -27,4 +27,6 @@ public interface BoardService {
 
 	int write(Board board) throws Exception;
 
+	int modify(Board board) throws Exception;
+
 }

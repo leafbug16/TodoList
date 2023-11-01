@@ -102,7 +102,12 @@
 		VALUES (#{boardType}, #{title}, #{content}, #{writer})
 	</insert>
 
-
+	<!-- 게시글 수정 -->
+	<update id="update" parameterType="Board">
+		UPDATE board
+		SET boardType=#{boardType}, title=#{title}, content=#{content}
+		WHERE bno=#{bno} AND writer=#{writer}
+	</update>
 
 </mapper>
 

@@ -68,4 +68,10 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.insert(board);
 	}
 	
+	//¼öÁ¤
+	@Override
+	public int modify(Board board) throws Exception {
+		return boardDAO.update(board);
+	}
+	
 }

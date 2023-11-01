@@ -171,6 +171,40 @@ public class BoardController {
 			return "write";
 		}
 	}
+	
+	//±Û ¼öÁ¤
+	@GetMapping("/modify")
+	public String modify(Integer bno, Model m, HttpSession session, RedirectAttributes redatt) {
+		try {
+			Board board = boardService.read(bno);
+			if (session.getAttribute("id") == null || !board.getWriter().equals(session.getAttribute("id"))) {
+				redatt.addFlashAttribute("msg", "modify_error");
+				return "redirect:/board/listFree";
+			}
+			m.addAttribute("board", board);
+			m.addAttribute("sessionId", session.getAttribute("id")+"");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "edit";
+	}
+	
+	@PostMapping("/modify")
+	public String modifyy(Board board, Model m, HttpSession session, RedirectAttributes redatt) {
+		String writer = session.getAttribute("id")+"";
+		board.setWriter(writer);
+		try {
+			int rowCnt = boardService.modify(board);
+			if(rowCnt!=1) throw new Exception("modify_Error");
+			redatt.addFlashAttribute("msg", "modify_ok");
+			return "redirect:/board/listFree";
+		} catch (Exception e) {
+			e.printStackTrace();
+			m.addAttribute("board", board);
+			m.addAttribute("msg", "modify_error");
+			return "edit";
+		}
+	}
 
 	
 }

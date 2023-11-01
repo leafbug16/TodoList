@@ -34,13 +34,13 @@
 	</table>
 	</form>
 	<c:choose>
-		<c:when test="${sessionId eq board.writer }">
+		<c:when test="${sessionId eq board.writer || sessionId eq 'admin'}">
 			<a href="<c:url value='/board/listFree?${searchCondition.queryString }'/>">목록</a>
 			<a onclick="deletePost()">삭제</a>
 			<a href="<c:url value='/board/modify?bno=${boardDto.bno }&page=${page }&pageSize=${pageSize }'/>">수정</a>
 		</c:when>
 		<c:otherwise>
-			<a href="<c:url value='/board/listFree?page=${page }&pageSize=${pageSize }'/>">목록</a>
+			<a href="<c:url value='/board/listFree?${searchCondition.queryString }'/>">목록</a>
 		</c:otherwise>
 	</c:choose>
 	

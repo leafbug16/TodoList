@@ -35,4 +35,6 @@ public interface BoardDAO {
 
 	int updateCommentCnt(Integer bno, Integer comments);
 
+	int updateLikeCnt(Integer bno, Integer likes);
+
 }

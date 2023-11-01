@@ -119,6 +119,11 @@
     	UPDATE board SET comments = comments + #{comments} WHERE bno = #{bno}
     </update>
     
+    <!-- 좋아요 수 증감 -->
+    <update id="updateLikeCnt" parameterType="map">
+    	UPDATE board SET likes = likes + #{likes} WHERE bno = #{bno}
+    </update>
+    
 </mapper>
 
 

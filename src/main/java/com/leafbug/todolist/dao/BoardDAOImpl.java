@@ -97,5 +97,14 @@ public class BoardDAOImpl implements BoardDAO {
 		return session.update(namespace+"updateCommentCnt", map);
 	}
 	
+	//좋아요 수 증감
+	@Override
+	public int updateLikeCnt(Integer bno, Integer likes) {
+		Map map = new HashMap();
+		map.put("bno", bno);
+		map.put("likes", likes);
+		return session.update(namespace+"updateLikeCnt", map);
+	}
+	
 	
 }

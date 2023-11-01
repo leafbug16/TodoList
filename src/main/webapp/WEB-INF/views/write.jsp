@@ -10,24 +10,43 @@
 </head>
 
 <body>
-    <div class="container border p-5">
-        <div class="row">
-            <h2>글쓰기</h2>
-            <form action="<c:url value='/board/write'/>" method="post" onsubmit="return formCheck(this)">
-	            <table>
-	                <tbody>
-	                    <tr>
-	                        <td><input type="text" class="form-control" placeholder="글 제목" name="title" maxlength="50"></td>
-	                    </tr>
-	                    <tr>
-	                        <td><textarea class="form-control" placeholder="글 내용" name="content" maxlength="2048" style="height:350px"></textarea></td>
-	                    </tr>
-	                </tbody>
-	            </table>
-                <input type="submit" class="btn btn-outline-light btn-sm float-end" value="등록">
-            </form>
-        </div>
-	</div>
+    <h2>글쓰기</h2>
+    <h2>${sessionId }</h2>
+    <!-- 글쓰기 폼 시작 -->
+    <form action="<c:url value='/board/write'/>" method="post" onsubmit="return formCheck(this)">
+    
+	    <!-- boardType 선택 -->
+	    <c:choose>
+	    	<c:when test="${sessionId eq 'admin' }">
+	    		<select name="boardType">
+	    			<option value="guide">가이드</option>
+	    			<option value="notice" selected>공지사항</option>
+	    			<option value="free">자유게시판</option>
+	    		</select>
+	    	</c:when>
+	    	<c:otherwise>
+	    		<select name="boardType">
+	    			<option value="guide" disabled>가이드</option>
+	    			<option value="notice" disabled>공지사항</option>
+	    			<option value="free" selected>자유게시판</option>
+	    		</select>
+	    	</c:otherwise>
+	    </c:choose>
+	    
+	    <!-- 내용 입력 부분 -->
+        <table>
+            <tbody>
+                <tr>
+                    <td><input type="text" placeholder="글 제목" name="title" id="title"></td>
+                </tr>
+                <tr>
+                    <td><textarea placeholder="글 내용" name="content" id="content" style="height:350px"></textarea></td>
+                </tr>
+            </tbody>
+        </table>
+        <button>작성 완료</button>
+    </form>
+    
 	<script>
 		let msg = ${msg };
 		if (msg=="write_error") alert("게시글 작성에 실패했습니다");

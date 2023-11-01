@@ -95,6 +95,12 @@
 		set views = views + 1
 		where bno = #{bno}
 	</update>
+	
+	<!-- 글 작성 -->
+	<insert id="insert" parameterType="Board">
+		INSERT INTO board (boardType, title, content, writer) 
+		VALUES (#{boardType}, #{title}, #{content}, #{writer})
+	</insert>
 
 
 

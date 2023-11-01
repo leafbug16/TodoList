@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.leafbug.todolist.model.Board;
 import com.leafbug.todolist.model.PageHandler;
@@ -135,15 +137,38 @@ public class BoardController {
 		}
 	}
 	
+	@GetMapping("/write")
+	public String write(Model m, HttpSession session) {
+		m.addAttribute("sessionId", session.getAttribute("id")+"");
+		return "write";
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
+	@PostMapping("/write")
+	public String save(Board board, Model m, HttpSession session, RedirectAttributes redatt) {
+		String writer = session.getAttribute("id")+"";
+		board.setWriter(writer);
+		String boardType = board.getBoardType();
+		try {
+			int rowCnt = boardService.write(board);
+			if(rowCnt!=1) {
+				throw new Exception("Write Error");
+			}
+			redatt.addFlashAttribute("msg", "write_ok");
+			if("guide".equals(boardType)) {
+				return "redirect:/board/listGuide";
+			} else if("notice".equals(boardType)) {
+				return "redirect:/board/listNotice";
+			} else {
+				return "redirect:/board/listFree";		
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			m.addAttribute("board", board);
+			m.addAttribute("msg", "write_error");
+			return "write";
+		}
+	}
+
 	
 }
 

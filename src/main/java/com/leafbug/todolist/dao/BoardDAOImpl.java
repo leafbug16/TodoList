@@ -66,5 +66,11 @@ public class BoardDAOImpl implements BoardDAO {
 		return session.update(namespace+"increaseViews", bno);
 	}
 	
+	//±€ ¿€º∫
+	@Override
+	public int insert(Board board) throws Exception {
+		return session.insert(namespace+"insert", board);
+	}
+	
 	
 }

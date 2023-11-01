@@ -17,7 +17,7 @@
 	    <thead>
 	    	<tr>
 	            <th>${board.writer }</th>
-	            <fmt:formatDate value="${boardDto.regDate }" type="date" pattern="yyyy-MM-dd HH:mm" var="regDate" />
+	            <fmt:formatDate value="${board.regDate }" type="date" pattern="yyyy-MM-dd HH:mm" var="regDate" />
 	            <th>${regDate }</th>
 	            <th>조회 ${board.views }</th>
 	            <th>추천 5</th>
@@ -37,7 +37,7 @@
 		<c:when test="${sessionId eq board.writer || sessionId eq 'admin'}">
 			<a href="<c:url value='/board/listFree?${searchCondition.queryString }'/>">목록</a>
 			<a onclick="deletePost()">삭제</a>
-			<a href="<c:url value='/board/modify?bno=${boardDto.bno }&page=${page }&pageSize=${pageSize }'/>">수정</a>
+			<a href="<c:url value='/board/modify?bno=${board.bno }&page=${page }&pageSize=${pageSize }'/>">수정</a>
 		</c:when>
 		<c:otherwise>
 			<a href="<c:url value='/board/listFree?${searchCondition.queryString }'/>">목록</a>

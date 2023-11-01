@@ -62,4 +62,10 @@ public class BoardServiceImpl implements BoardService {
 		return board;
 	}
 	
+	//게시판 글 쓰기
+	@Override
+	public int write(Board board) throws Exception {
+		return boardDAO.insert(board);
+	}
+	
 }

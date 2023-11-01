@@ -27,4 +27,6 @@ public interface BoardDAO {
 
 	int increaseViews(Integer bno) throws Exception;
 
+	int insert(Board board) throws Exception;
+
 }

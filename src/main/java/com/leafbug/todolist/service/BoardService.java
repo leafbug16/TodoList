@@ -25,4 +25,6 @@ public interface BoardService {
 
 	Board read(Integer bno) throws Exception;
 
+	int write(Board board) throws Exception;
+
 }

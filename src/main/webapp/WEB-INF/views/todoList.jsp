@@ -9,6 +9,7 @@
 </head>
 <body>
 	<h1>todo</h1>
+	<h1>현재 로그인 : ${sessionId }</h1>
 	<a href="<c:url value='/login/logout'/>">로그아웃</a>
 	<a href="<c:url value='/board/listGuide'/>">가이드</a>
     <a href="<c:url value='/board/listNotice'/>">공지사항</a>

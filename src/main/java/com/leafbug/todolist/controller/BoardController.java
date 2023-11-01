@@ -49,7 +49,8 @@ public class BoardController {
 	}
 	
 	@GetMapping("/listGuide")
-	public String listGuide(SearchCondition sc, HttpServletRequest request, Model m) {	
+	public String listGuide(SearchCondition sc, HttpServletRequest request, Model m, HttpSession session) {	
+		m.addAttribute("sessionId", session.getAttribute("id")+"");
 		
 		try {
 			int totalCnt = boardService.getSearchResultCntGuide(sc);
@@ -69,7 +70,8 @@ public class BoardController {
 	}
 	
 	@GetMapping("/listNotice")
-	public String listNotice(SearchCondition sc, HttpServletRequest request, Model m) {	
+	public String listNotice(SearchCondition sc, HttpServletRequest request, Model m, HttpSession session) {	
+		m.addAttribute("sessionId", session.getAttribute("id")+"");
 		
 		try {
 			int totalCnt = boardService.getSearchResultCntNotice(sc);
@@ -89,7 +91,8 @@ public class BoardController {
 	}
 	
 	@GetMapping("/listFree")
-	public String list(SearchCondition sc, HttpServletRequest request, Model m) {	
+	public String list(SearchCondition sc, HttpServletRequest request, Model m, HttpSession session) {	
+		m.addAttribute("sessionId", session.getAttribute("id")+"");
 		
 		try {
 			int totalCnt = boardService.getSearchResultCntFree(sc);

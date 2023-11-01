@@ -62,8 +62,10 @@
         </tbody>
     </table>
     <!-- 페이지네이션 시작 --> 
-	<a href="<c:url value='/board/write'/>">글쓰기</a>
-	  <nav>
+    <c:if test="${sessionId eq 'admin' }">
+		<a href="<c:url value='/board/write'/>">글쓰기</a>    
+    </c:if>
+	<nav>
 	  <ul>
 	  	<c:if test="${ph.showPrev }">
 		    <li class="page-item">

@@ -107,7 +107,7 @@ public class BoardController {
 	}
 	
 	@GetMapping("/read")
-	public String read(Integer bno, SearchCondition sc, HttpServletRequest request, Model m) {
+	public String read(Integer bno, SearchCondition sc, String mode, HttpServletRequest request, Model m) {
 		Board board;
 		HttpSession session = request.getSession();
 		String sessionId = session.getAttribute("id")+"";
@@ -118,9 +118,21 @@ public class BoardController {
 		} catch (Exception e) {
 			System.out.println("board/read ¿À·ù");
 			e.printStackTrace();
-			return "redirect:/board/listFree"+sc.getQueryString();
+			if("guide".equals(mode)) {
+				return "redirect:/board/listGuide"+sc.getQueryString();
+			} else if("notice".equals(mode)) {
+				return "redirect:/board/listNotice"+sc.getQueryString();
+			} else {
+				return "redirect:/board/listFree"+sc.getQueryString();		
+			}
 		}
-		return "view";
+		if("guide".equals(mode)) {
+			return "viewGuide";
+		} else if("notice".equals(mode)) {
+			return "viewNotice";
+		} else {
+			return "viewFree";
+		}
 	}
 	
 	

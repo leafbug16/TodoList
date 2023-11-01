@@ -29,4 +29,6 @@ public interface BoardService {
 
 	int modify(Board board) throws Exception;
 
+	int remove(Integer bno) throws Exception;
+
 }

@@ -31,4 +31,8 @@ public interface BoardDAO {
 
 	int update(Board board) throws Exception;
 
+	int delete(Integer bno) throws Exception;
+
+	int updateCommentCnt(Integer bno, Integer comments);
+
 }

@@ -108,7 +108,17 @@
 		SET boardType=#{boardType}, title=#{title}, content=#{content}
 		WHERE bno=#{bno} AND writer=#{writer}
 	</update>
-
+	
+	<!-- 특정 게시글 삭제 -->
+	<delete id="delete" parameterType="map">
+		delete from board where bno=#{bno}
+	</delete>
+	
+	<!-- 댓글 수 증감 -->
+	<update id="updateCommentCnt" parameterType="map">
+    	UPDATE board SET comments = comments + #{comments} WHERE bno = #{bno}
+    </update>
+    
 </mapper>
 
 

@@ -1,6 +1,8 @@
 package com.leafbug.todolist.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,6 +78,23 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public int update(Board board) throws Exception {
 		return session.update(namespace+"update", board);
+	}
+	
+	//글 삭제
+	@Override
+	public int delete(Integer bno) throws Exception {
+		Map map = new HashMap();
+		map.put("bno", bno);
+		return session.delete(namespace+"delete", map);
+	}
+	
+	//댓글 수 증감
+	@Override
+	public int updateCommentCnt(Integer bno, Integer comments) {
+		Map map = new HashMap();
+		map.put("bno", bno);
+		map.put("comments", comments);
+		return session.update(namespace+"updateCommentCnt", map);
 	}
 	
 	

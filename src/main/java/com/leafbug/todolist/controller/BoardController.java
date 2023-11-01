@@ -205,6 +205,24 @@ public class BoardController {
 			return "edit";
 		}
 	}
+	
+	@PostMapping("/remove")
+	public String remove(Integer bno, SearchCondition sc, HttpSession session, RedirectAttributes redatt) {
+		try {
+			String writer = (String)session.getAttribute("id");
+			int rowCnt = boardService.remove(bno);
+			if(rowCnt==1) {
+				redatt.addFlashAttribute("msg", "del");
+				return "redirect:/board/listFree";
+			} else {
+				throw new Exception("board remove error");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			redatt.addFlashAttribute("msg", "error");
+		}
+		return "redirect:/board/listFree"+sc.getQueryString();
+	}
 
 	
 }

@@ -50,7 +50,7 @@
 			if(confirmed){
 				var form = document.writeFrm;
 				form.method = "post";
-				form.action = "<c:url value='/board/remove'/>?bno=${boardDto.bno }&page=${page }&pageSize=${pageSize }";
+				form.action = "<c:url value='/board/remove'/>?bno=${board.bno }&page=${page }&pageSize=${pageSize }";
 				form.submit();
 			}
 		}

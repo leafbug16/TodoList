@@ -133,6 +133,27 @@ public class BoardController {
 		return "boardReport";
 	}
 	
+	@GetMapping("/listReported")
+	public String listReported(SearchCondition sc, HttpServletRequest request, Model m, HttpSession session) {	
+		m.addAttribute("sessionId", session.getAttribute("id")+"");
+		
+		try {
+			int totalCnt = boardService.getSearchResultCntReport(sc);
+			PageHandler pageHandler = new PageHandler(totalCnt, sc);
+			
+			List<Board> list = boardService.getSearchResultPageReport(sc);
+			m.addAttribute("list", list);
+			m.addAttribute("ph", pageHandler);
+			
+			Date now = new Date();
+			m.addAttribute("now", now);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "adminReported";
+	}
+	
 	@GetMapping("/read")
 	public String read(Integer bno, SearchCondition sc, String mode, HttpServletRequest request, Model m) {
 		Board board;
@@ -194,7 +215,7 @@ public class BoardController {
 			}
 			redatt.addFlashAttribute("msg", "write_ok");
 			if("report".equals(boardType)) {
-				return "redirect:/myPage";
+				return "redirect:/board/listMyReport";
 			}
 			if("guide".equals(boardType)) {
 				return "redirect:/board/listGuide";
@@ -260,6 +281,8 @@ public class BoardController {
 		}
 		if("adminBoard".equals(mode)) {
 			return "redirect:/board/listAll";
+		} else if("adminReported".equals(mode)) {
+			return "redirect:/board/listReported";
 		} else {
 			return "redirect:/board/listFree";			
 		}

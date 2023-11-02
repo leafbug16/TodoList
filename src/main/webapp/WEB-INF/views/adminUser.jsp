@@ -21,7 +21,7 @@
     <h2>회원 관리</h2>
     <a href="<c:url value='/board/listAll'/>">게시판 글 관리</a>
     <a href="<c:url value='/user/listAll'/>">회원 관리</a>
-    <a href="<c:url value='/board/listMyReport'/>">문의/bug report 관리</a>
+    <a href="<c:url value='/board/listReported'/>">문의/bug report 관리</a>
     
     <!-- 검색폼 -->
     <form action="<c:url value='/user/listAll'/>" method="get">

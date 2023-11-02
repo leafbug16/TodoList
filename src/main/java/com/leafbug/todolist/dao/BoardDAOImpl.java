@@ -106,5 +106,17 @@ public class BoardDAOImpl implements BoardDAO {
 		return session.update(namespace+"updateLikeCnt", map);
 	}
 	
+	//좋아요 누른 글 목록
+	@Override
+	public List<Board> selectPageLike(Map map) throws Exception {
+		return session.selectList(namespace+"selectPageLike", map);
+	}
+	
+	@Override
+	public int selectCntLike(Map map) throws Exception {
+		return session.selectOne(namespace+"selectCntLike", map);
+	}
+	
+	
 	
 }

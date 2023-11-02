@@ -1,6 +1,7 @@
 package com.leafbug.todolist.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.leafbug.todolist.model.Board;
 import com.leafbug.todolist.model.SearchCondition;
@@ -36,5 +37,10 @@ public interface BoardDAO {
 	int updateCommentCnt(Integer bno, Integer comments);
 
 	int updateLikeCnt(Integer bno, Integer likes);
+
+	List<Board> selectPageLike(Map map) throws Exception;
+
+	int selectCntLike(Map map) throws Exception;
+
 
 }

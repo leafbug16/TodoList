@@ -1,7 +1,9 @@
 package com.leafbug.todolist.controller;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.leafbug.todolist.model.Board;
 import com.leafbug.todolist.model.PageHandler;
+import com.leafbug.todolist.model.PageHandler2;
 import com.leafbug.todolist.model.SearchCondition;
 import com.leafbug.todolist.service.BoardService;
 
@@ -127,6 +130,8 @@ public class BoardController {
 				return "redirect:/board/listGuide"+sc.getQueryString();
 			} else if("notice".equals(mode)) {
 				return "redirect:/board/listNotice"+sc.getQueryString();
+			} else if("myPageLike".equals(mode)) {
+				return "redirect:/board/listLike";
 			} else {
 				return "redirect:/board/listFree"+sc.getQueryString();		
 			}
@@ -140,10 +145,18 @@ public class BoardController {
 		}
 	}
 	
+	//게시판 글쓰기로 이동
 	@GetMapping("/write")
 	public String write(Model m, HttpSession session) {
 		m.addAttribute("sessionId", session.getAttribute("id")+"");
 		return "write";
+	}
+	
+	//bug report 글쓰기로 이동
+	@GetMapping("/writeReport")
+	public String writeReport(Model m, HttpSession session) {
+		m.addAttribute("sessionId", session.getAttribute("id")+"");
+		return "writeReport";
 	}
 	
 	@PostMapping("/write")
@@ -157,6 +170,9 @@ public class BoardController {
 				throw new Exception("Write Error");
 			}
 			redatt.addFlashAttribute("msg", "write_ok");
+			if("report".equals(boardType)) {
+				return "redirect:/myPage";
+			}
 			if("guide".equals(boardType)) {
 				return "redirect:/board/listGuide";
 			} else if("notice".equals(boardType)) {
@@ -222,6 +238,28 @@ public class BoardController {
 			redatt.addFlashAttribute("msg", "error");
 		}
 		return "redirect:/board/listFree"+sc.getQueryString();
+	}
+	
+	@GetMapping("/listMyLike")
+	public String listLike(Integer page, Integer pageSize, HttpSession session, Model m) {
+		if(page==null) page = 1;
+		if(pageSize==null) pageSize = 15;
+		try {
+			Map map = new HashMap();
+			map.put("id", session.getAttribute("id")+"");
+			map.put("offset", (page-1)*pageSize);
+			map.put("pageSize", pageSize);
+			
+			int totalCnt = boardService.getResultCntLike(map);
+			PageHandler2 ph = new PageHandler2(session.getAttribute("id")+"", totalCnt, page, pageSize);
+			m.addAttribute("ph", ph);			
+			
+			List<Board> list = boardService.getResultPageLike(map);
+			m.addAttribute("list", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "myPageLike";
 	}
 
 	

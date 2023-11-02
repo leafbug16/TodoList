@@ -1,6 +1,7 @@
 package com.leafbug.todolist.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.leafbug.todolist.model.Board;
 import com.leafbug.todolist.model.SearchCondition;
@@ -30,5 +31,10 @@ public interface BoardService {
 	int modify(Board board) throws Exception;
 
 	int remove(Integer bno) throws Exception;
+
+	List<Board> getResultPageLike(Map map) throws Exception;
+
+	int getResultCntLike(Map map) throws Exception;
+
 
 }

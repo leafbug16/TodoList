@@ -1,6 +1,7 @@
 package com.leafbug.todolist.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -78,6 +79,17 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int remove(Integer bno) throws Exception {
 		return boardDAO.delete(bno);
+	}
+	
+	//좋아요 누른 글 목록 조회
+	@Override
+	public List<Board> getResultPageLike(Map map) throws Exception {
+		return boardDAO.selectPageLike(map);
+	}
+	
+	@Override
+	public int getResultCntLike(Map map) throws Exception {
+		return boardDAO.selectCntLike(map);
 	}
 	
 }

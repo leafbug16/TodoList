@@ -14,5 +14,7 @@
 	<a href="<c:url value='/board/listGuide'/>">가이드</a>
     <a href="<c:url value='/board/listNotice'/>">공지사항</a>
     <a href="<c:url value='/board/listFree'/>">자유게시판</a>
+    <a href="<c:url value='/board/listLike'/>">마이페이지</a>    
+    <a href="<c:url value='/board/writeReport'/>">문의 / bug report</a>   
 </body>
 </html>

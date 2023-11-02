@@ -12,6 +12,7 @@ public class Board {
 	private Integer comments;
 	private Integer likes;
 	private Date regDate;
+	private String comment;
 	
 	public Board() {
 		super();
@@ -22,6 +23,13 @@ public class Board {
 		this.title = title;
 		this.content = content;
 		this.writer = writer;
+	}
+		
+	public String getComment() {
+		return comment;
+	}
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 	public String getBoardType() {
 		return boardType;
@@ -77,10 +85,12 @@ public class Board {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
+
 	@Override
 	public String toString() {
 		return "Board [boardType=" + boardType + ", bno=" + bno + ", title=" + title + ", content=" + content + ", writer="
-				+ writer + ", views=" + views + ", comments=" + comments + ", likes=" + likes + ", regDate=" + regDate + "]";
+				+ writer + ", views=" + views + ", comments=" + comments + ", likes=" + likes + ", regDate=" + regDate
+				+ ", comment=" + comment + "]";
 	}
 	
 }

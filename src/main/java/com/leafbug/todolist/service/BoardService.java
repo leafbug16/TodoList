@@ -15,6 +15,8 @@ public interface BoardService {
 	List<Board> getSearchResultPageNotice(SearchCondition sc) throws Exception;
 
 	List<Board> getSearchResultPageFree(SearchCondition sc) throws Exception;
+	
+	List<Board> getSearchResultPageReport(SearchCondition sc) throws Exception;
 
 	int getSearchResultCntAll(SearchCondition sc) throws Exception;
 
@@ -23,6 +25,8 @@ public interface BoardService {
 	int getSearchResultCntNotice(SearchCondition sc) throws Exception;
 
 	int getSearchResultCntFree(SearchCondition sc) throws Exception;
+	
+	int getSearchResultCntReport(SearchCondition sc) throws Exception;
 
 	Board read(Integer bno) throws Exception;
 
@@ -35,6 +39,14 @@ public interface BoardService {
 	List<Board> getResultPageLike(Map map) throws Exception;
 
 	int getResultCntLike(Map map) throws Exception;
+
+	int getCntMyPost(Map map) throws Exception;
+
+	List<Board> getMyPost(Map map) throws Exception;
+
+	List<Board> getMyComment(Map map) throws Exception;
+
+	int getCntMyComment(Map map) throws Exception;
 
 
 }

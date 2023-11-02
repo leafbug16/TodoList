@@ -18,30 +18,25 @@
 <body>
     <h2 id="title">마이페이지</h2>    
     <a href="<c:url value='/'/>">할일로 돌아가기</a><br>
-    <h2>추천한 글</h2>
+    <h2>작성한 댓글</h2>
     <a href="<c:url value='/board/listMyLike'/>">추천한 글</a>
     <a href="<c:url value='/board/listMyPost'/>">작성한 글</a>
     <a href="<c:url value='/board/listMyComment'/>">작성한 댓글</a>
-    <a href="<c:url value='/board/listMyReport'/>">문의 내역</a>
+    <a href="<c:url value='/board/listMyReport'/>">문의/bug report 내역</a>
     <table>
         <thead>
             <tr>
-                <th>번호</th>
-                <th>제목</th>
-                <th>글쓴이</th>
-                <th>등록일</th>
-                <th>조회</th>
+                <th>내가 작성한 댓글</th>
+                <th>글 제목</th>
+                <th>글 작성자</th>
             </tr>
         </thead>
         <tbody>
         	<c:forEach var="board" items="${list }">
             <tr>
-                <td>${board.bno }</td>
-                <td><a href="<c:url value='/board/read?bno=${board.bno }&mode=myPageLike'/>">${board.title }</a></td>
+                <td>${board.comment }</td>
+                <td><a href="<c:url value='/board/read?bno=${board.bno }&mode=myComment'/>">${board.title }</a></td>
                 <td>${board.writer }</td>
-                <fmt:formatDate value="${board.regDate }" type="date" pattern="yyyy-MM-dd HH:mm" var="reg_date" />
-                <td>${reg_date }</td>
-                <td>${board.views }</td>
             </tr>
             </c:forEach>
         </tbody>
@@ -51,17 +46,17 @@
 	  <ul>
 	  	<c:if test="${ph.showPrev }">
 		    <li>
-		      <a href="<c:url value='/board/listLike?page=${ph.beginPage-1 }&pageSize=${ph.pageSize }'/>" aria-label="Previous">
+		      <a href="<c:url value='/board/listMyComment?page=${ph.beginPage-1 }&pageSize=${ph.pageSize }'/>" aria-label="Previous">
 		        <span aria-hidden="true">&laquo;</span>
 		      </a>
 		    </li>
 	    </c:if>
 	    <c:forEach var="i" begin="${ph.beginPage }" end="${ph.endPage }">
-	    	<li ${ph.page==i? 'active':'' }"><a href="<c:url value='/board/listLike?page=${i }&pageSize=${ph.pageSize }' />">${i }</a></li>
+	    	<li ${ph.page==i? 'active':'' }"><a href="<c:url value='/board/listMyComment?page=${i }&pageSize=${ph.pageSize }' />">${i }</a></li>
 	    </c:forEach>
 	    <c:if test="${ph.showNext }">
 		    <li>
-		      <a href="<c:url value='/board/listLike?page=${ph.endPage+1 }&pageSize=${ph.pageSize }'/>" aria-label="Next">
+		      <a href="<c:url value='/board/listMyComment?page=${ph.endPage+1 }&pageSize=${ph.pageSize }'/>" aria-label="Next">
 		        <span aria-hidden="true">&raquo;</span>
 		      </a>
 		    </li>

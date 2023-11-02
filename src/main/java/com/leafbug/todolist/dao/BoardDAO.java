@@ -42,5 +42,17 @@ public interface BoardDAO {
 
 	int selectCntLike(Map map) throws Exception;
 
+	List<Board> selectMyPost(Map map) throws Exception;
+
+	int selectCntMyPost(Map map) throws Exception;
+
+	List<Board> selectMyComment(Map map) throws Exception;
+
+	int selectCntMyComment(Map map) throws Exception;
+
+	List<Board> searchSelectPageReport(SearchCondition sc) throws Exception;
+
+	int searchResultCntReport(SearchCondition sc) throws Exception;
+
 
 }

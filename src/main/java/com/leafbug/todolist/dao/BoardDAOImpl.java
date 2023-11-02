@@ -38,6 +38,11 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 	
 	@Override
+	public List<Board> searchSelectPageReport(SearchCondition sc) throws Exception {
+		return session.selectList(namespace+"searchSelectPageReport", sc);
+	}
+	
+	@Override
 	public int searchResultCntAll(SearchCondition sc) throws Exception {
 		return session.selectOne(namespace+"searchResultCntAll", sc);
 	}
@@ -55,6 +60,11 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public int searchResultCntFree(SearchCondition sc) throws Exception {
 		return session.selectOne(namespace+"searchResultCntFree", sc);
+	}
+	
+	@Override
+	public int searchResultCntReport(SearchCondition sc) throws Exception {
+		return session.selectOne(namespace+"searchResultCntReport", sc);
 	}
 	
 	//게시글 상세보기
@@ -111,12 +121,65 @@ public class BoardDAOImpl implements BoardDAO {
 	public List<Board> selectPageLike(Map map) throws Exception {
 		return session.selectList(namespace+"selectPageLike", map);
 	}
-	
+	//좋아요 누른 글 수
 	@Override
 	public int selectCntLike(Map map) throws Exception {
 		return session.selectOne(namespace+"selectCntLike", map);
 	}
 	
+	//내가 쓴 글 목록 조회
+	@Override
+	public List<Board> selectMyPost(Map map) throws Exception {
+		return session.selectList(namespace+"selectMyPost", map);
+	}
+	
+	@Override
+	public int selectCntMyPost(Map map) throws Exception {
+		return session.selectOne(namespace+"selectCntMyPost", map);
+	}
+	
+	//내가 쓴 댓글 목록 조회
+	@Override
+	public List<Board> selectMyComment(Map map) throws Exception {
+		return session.selectList(namespace+"selectMyComment", map);
+	}
+	
+	@Override
+	public int selectCntMyComment(Map map) throws Exception {
+		return session.selectOne(namespace+"selectCntMyComment", map);
+	}
+	
 	
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

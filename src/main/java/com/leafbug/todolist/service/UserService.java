@@ -1,5 +1,8 @@
 package com.leafbug.todolist.service;
 
+import java.util.List;
+
+import com.leafbug.todolist.model.SearchCondition;
 import com.leafbug.todolist.model.User;
 
 public interface UserService {
@@ -12,5 +15,9 @@ public interface UserService {
 
 	//user ªË¡¶
 	int removeUser(String id) throws Exception;
+
+	List<User> getUserAll(SearchCondition sc) throws Exception;
+
+	int getCntUserAll(SearchCondition sc) throws Exception;
 
 }

@@ -39,16 +39,14 @@ public class BoardController {
 			List<Board> list = boardService.getSearchResultPageAll(sc);
 			m.addAttribute("list", list);
 			m.addAttribute("ph", pageHandler);
-			
-			System.out.println("보드컨트롤러에서 리스트 확인 : " +list);
-			
+
 			Date now = new Date();
 			m.addAttribute("now", now);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "board";
+		return "adminBoard";
 	}
 	
 	@GetMapping("/listGuide")
@@ -114,6 +112,27 @@ public class BoardController {
 		return "boardFree";
 	}
 	
+	@GetMapping("/listMyReport")
+	public String listReport(SearchCondition sc, HttpServletRequest request, Model m, HttpSession session) {	
+		m.addAttribute("sessionId", session.getAttribute("id")+"");
+		
+		try {
+			int totalCnt = boardService.getSearchResultCntReport(sc);
+			PageHandler pageHandler = new PageHandler(totalCnt, sc);
+			
+			List<Board> list = boardService.getSearchResultPageReport(sc);
+			m.addAttribute("list", list);
+			m.addAttribute("ph", pageHandler);
+			
+			Date now = new Date();
+			m.addAttribute("now", now);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "boardReport";
+	}
+	
 	@GetMapping("/read")
 	public String read(Integer bno, SearchCondition sc, String mode, HttpServletRequest request, Model m) {
 		Board board;
@@ -130,8 +149,10 @@ public class BoardController {
 				return "redirect:/board/listGuide"+sc.getQueryString();
 			} else if("notice".equals(mode)) {
 				return "redirect:/board/listNotice"+sc.getQueryString();
-			} else if("myPageLike".equals(mode)) {
-				return "redirect:/board/listLike";
+			} else if("myLike".equals(mode)) {
+				return "redirect:/board/listMyLike";
+			} else if("myReport".equals(mode)) {
+				return "redirect:/board/listMyReport";
 			} else {
 				return "redirect:/board/listFree"+sc.getQueryString();		
 			}
@@ -140,6 +161,8 @@ public class BoardController {
 			return "viewGuide";
 		} else if("notice".equals(mode)) {
 			return "viewNotice";
+		} else if("myReport".equals(mode)) {
+			return "viewReport";
 		} else {
 			return "viewFree";
 		}
@@ -222,14 +245,12 @@ public class BoardController {
 		}
 	}
 	
-	@PostMapping("/remove")
-	public String remove(Integer bno, SearchCondition sc, HttpSession session, RedirectAttributes redatt) {
+	@RequestMapping("/remove")
+	public String remove(Integer bno, SearchCondition sc, String mode, HttpSession session, RedirectAttributes redatt) {
 		try {
-			String writer = (String)session.getAttribute("id");
 			int rowCnt = boardService.remove(bno);
 			if(rowCnt==1) {
 				redatt.addFlashAttribute("msg", "del");
-				return "redirect:/board/listFree";
 			} else {
 				throw new Exception("board remove error");
 			}
@@ -237,7 +258,11 @@ public class BoardController {
 			e.printStackTrace();
 			redatt.addFlashAttribute("msg", "error");
 		}
-		return "redirect:/board/listFree"+sc.getQueryString();
+		if("adminBoard".equals(mode)) {
+			return "redirect:/board/listAll";
+		} else {
+			return "redirect:/board/listFree";			
+		}
 	}
 	
 	@GetMapping("/listMyLike")
@@ -259,7 +284,51 @@ public class BoardController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "myPageLike";
+		return "myLike";
+	}
+	
+	@GetMapping("/listMyPost")
+	public String listMyPost(Integer page, Integer pageSize, HttpSession session, Model m) {
+		if(page==null) page = 1;
+		if(pageSize==null) pageSize = 15;
+		try {
+			Map map = new HashMap();
+			map.put("id", session.getAttribute("id")+"");
+			map.put("offset", (page-1)*pageSize);
+			map.put("pageSize", pageSize);
+			
+			int totalCnt = boardService.getCntMyPost(map);
+			PageHandler2 ph = new PageHandler2(session.getAttribute("id")+"", totalCnt, page, pageSize);
+			m.addAttribute("ph", ph);			
+			
+			List<Board> list = boardService.getMyPost(map);
+			m.addAttribute("list", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "myPost";
+	}
+	
+	@GetMapping("/listMyComment")
+	public String listMyComment(Integer page, Integer pageSize, HttpSession session, Model m) {
+		if(page==null) page = 1;
+		if(pageSize==null) pageSize = 15;
+		try {
+			Map map = new HashMap();
+			map.put("id", session.getAttribute("id")+"");
+			map.put("offset", (page-1)*pageSize);
+			map.put("pageSize", pageSize);
+			
+			int totalCnt = boardService.getCntMyComment(map);
+			PageHandler2 ph = new PageHandler2(session.getAttribute("id")+"", totalCnt, page, pageSize);
+			m.addAttribute("ph", ph);			
+			
+			List<Board> list = boardService.getMyComment(map);
+			m.addAttribute("list", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "myComment";
 	}
 
 	

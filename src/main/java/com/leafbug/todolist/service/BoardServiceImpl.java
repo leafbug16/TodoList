@@ -36,6 +36,11 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
+	public List<Board> getSearchResultPageReport(SearchCondition sc) throws Exception {
+		return boardDAO.searchSelectPageReport(sc);
+	}
+	
+	@Override
 	public int getSearchResultCntAll(SearchCondition sc) throws Exception {
 		return boardDAO.searchResultCntAll(sc);
 	}
@@ -53,6 +58,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int getSearchResultCntFree(SearchCondition sc) throws Exception {
 		return boardDAO.searchResultCntFree(sc);
+	}
+	
+	@Override
+	public int getSearchResultCntReport(SearchCondition sc) throws Exception {
+		return boardDAO.searchResultCntReport(sc);
 	}
 	
 	//게시판 읽기 = 게시판 조회 + 조회수 1증가
@@ -92,4 +102,53 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.selectCntLike(map);
 	}
 	
+	//내가 쓴 글 목록 조회
+	@Override
+	public List<Board> getMyPost(Map map) throws Exception {
+		return boardDAO.selectMyPost(map);
+	}
+	
+	@Override
+	public int getCntMyPost(Map map) throws Exception {
+		return boardDAO.selectCntMyPost(map);
+	}
+	
+	@Override
+	public List<Board> getMyComment(Map map) throws Exception {
+		return boardDAO.selectMyComment(map);
+	}
+	
+	@Override
+	public int getCntMyComment(Map map) throws Exception {
+		return boardDAO.selectCntMyComment(map);
+	}
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

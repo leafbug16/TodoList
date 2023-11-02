@@ -7,7 +7,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>view</title>
+    <title>가이드 게시판</title>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 
 <body>
@@ -43,6 +44,8 @@
 			<a href="<c:url value='/board/listGuide?${searchCondition.queryString }'/>">목록</a>
 		</c:otherwise>
 	</c:choose>
+	<span id="likeIcon"></span>
+	<span id="likeCnt"></span>
 	
 	<script>
 		function deletePost(){
@@ -54,6 +57,50 @@
 				form.submit();
 			}
 		}
+		
+		//좋아요 ajax 시작
+		const bno = ${board.bno };
+		let showLike = function(bno){
+			$.ajax({
+				type : "POST",
+				url : "/todolist/showLike?bno="+bno,
+				success : function(like) {
+					if (like.res == 1) {
+						$("#likeIcon").html("<button id='afterLike' type='button'>💚</button>");
+					} else {
+						$("#likeIcon").html("<button id='beforeLike' type='button'>🤍</button>");
+					}
+					$("#likeCnt").html('['+ like.resAll +']');
+				},
+				error: function(request, status, error){ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error+"좋아요 정보 조회 중 에러") }
+			});
+		}
+		
+		//로드 시
+		$(document).ready(function(){
+			showLike(bno);
+			$('#likeIcon').on("click", "#afterLike", function() {
+				$.ajax({
+					type : "POST",
+					url : "/todolist/removeLike?bno="+bno,
+					success : function(result) {
+						showLike(bno);
+					},
+					error: function(request, status, error){ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error+"\n" +"좋아요 해제 에러") }
+				}); //ajax
+			}); //afterLike
+			
+			$('#likeIcon').on("click", "#beforeLike", function() {
+				$.ajax({
+					type : "POST",
+					url : "/todolist/addLike?bno="+bno,
+					success : function(result) {
+						showLike(bno);
+					},
+					error: function(request, status, error){ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error+"\n" +"좋아요 에러") }
+				}); //ajax
+			}); //beforeLike	
+		});	
 	</script>
 </body>
 

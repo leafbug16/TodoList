@@ -17,13 +17,19 @@ public class LikeDAOImpl implements LikeDAO {
 	String namespace = "likeMapper.";
 	
 	@Override
-	public int insert(Like like) throws Exception {
-		return session.insert(namespace+"insert", like);
+	public int insert(Integer bno, String liker) throws Exception {
+		Map map = new HashMap();
+		map.put("bno", bno);
+		map.put("liker", liker);
+		return session.insert(namespace+"insert", map);
 	}
 	
 	@Override
-	public int delete(Like like) throws Exception {
-		return session.delete(namespace+"delete", like);
+	public int delete(Integer bno, String liker) throws Exception {
+		Map map = new HashMap();
+		map.put("bno", bno);
+		map.put("liker", liker);
+		return session.delete(namespace+"delete", map);
 	}
 	
 	@Override
@@ -36,7 +42,7 @@ public class LikeDAOImpl implements LikeDAO {
 		Map map = new HashMap();
 		map.put("bno", bno);
 		map.put("liker", liker);
-		return session.selectOne(namespace+"count", bno);
+		return session.selectOne(namespace+"count", map);
 	}
 	
 }

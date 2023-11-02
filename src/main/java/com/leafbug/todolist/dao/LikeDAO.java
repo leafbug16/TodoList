@@ -4,12 +4,14 @@ import com.leafbug.todolist.model.Like;
 
 public interface LikeDAO {
 
-	int insert(Like like) throws Exception;
+	int insert(Integer bno, String liker) throws Exception;
 
-	int delete(Like like) throws Exception;
+	int delete(Integer bno, String liker) throws Exception;
 
 	int countAll(Integer bno) throws Exception;
 
 	int count(Integer bno, String liker) throws Exception;
+
+
 
 }

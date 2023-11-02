@@ -16,16 +16,16 @@ public class LikeServiceImpl implements LikeService {
 	
 	//좋아요
 	@Override
-	public int addLike(Like like) throws Exception {
-		boardDAO.updateLikeCnt(like.getBno(), 1);
-		return likeDAO.insert(like);
+	public int addLike(Integer bno, String liker) throws Exception {
+		boardDAO.updateLikeCnt(bno, 1);
+		return likeDAO.insert(bno, liker);
 	}
 	
 	//좋아요 해제
 	@Override
-	public int removeLike(Like like) throws Exception {
-		boardDAO.updateLikeCnt(like.getBno(), -1);
-		return likeDAO.delete(like);
+	public int removeLike(Integer bno, String liker) throws Exception {
+		boardDAO.updateLikeCnt(bno, -1);
+		return likeDAO.delete(bno, liker);
 	}
 	
 	//총 좋아요 개수 조회

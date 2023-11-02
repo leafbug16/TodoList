@@ -4,13 +4,13 @@
 
 <mapper namespace = "likeMapper">
 	<!-- 좋아요 -->
-	<insert id="insert" parameterType="Like">
+	<insert id="insert" parameterType="map">
 		INSERT INTO board_like(bno, liker) VALUES(#{bno}, #{liker})
 	</insert>
 	
 	<!-- 좋아요 취소 -->
-	<delete id="delete" parameterType="Like">
-		DELETE FROM board_like WHERE lno = #{lno} AND liker = #{liker}
+	<delete id="delete" parameterType="map">
+		DELETE FROM board_like WHERE bno = #{bno} AND liker = #{liker}
 	</delete>
 	
 	<!-- 특정 게시물 좋아요 갯수 조회 -->

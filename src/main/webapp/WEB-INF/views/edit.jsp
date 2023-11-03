@@ -13,15 +13,15 @@
     <h2>수정</h2>
     <h2>${sessionId }, ${board.bno }</h2>
     <!-- 글수정 폼 시작 -->
-    <form action="<c:url value='/board/modify'/>" method="post" onsubmit="return formCheck(this)">
+    <form action="<c:url value='/board/modify?mode=${board.boardType }'/>" method="post" onsubmit="return formCheck(this)">
     	<input type="hidden" name="bno" value="${board.bno}">
 	    <!-- boardType 선택 -->
 	    <c:choose>
 	    	<c:when test="${sessionId eq 'admin' }">
 	    		<select name="boardType">
-	    			<option value="guide">가이드</option>
-	    			<option value="notice" selected>공지사항</option>
-	    			<option value="free">자유게시판</option>
+	    			<option value="guide" ${mode eq 'guide' ? 'selected' : ''}>가이드</option>
+		            <option value="notice" ${mode eq 'notice' ? 'selected' : ''}>공지사항</option>
+		            <option value="free" ${mode eq 'free' ? 'selected' : ''}>자유게시판</option>
 	    		</select>
 	    	</c:when>
 	    	<c:otherwise>

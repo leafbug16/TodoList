@@ -37,7 +37,7 @@
 		<c:when test="${sessionId eq board.writer || sessionId eq 'admin'}">
 			<a href="<c:url value='/board/listFree?${searchCondition.queryString }'/>">목록</a>
 			<a onclick="deletePost()">삭제</a>
-			<a href="<c:url value='/board/modify?bno=${board.bno }'/>">수정</a>
+			<a href="<c:url value='/board/modify?bno=${board.bno }&mode=free'/>">수정</a>
 		</c:when>
 		<c:otherwise>
 			<a href="<c:url value='/board/listFree?${searchCondition.queryString }'/>">목록</a>

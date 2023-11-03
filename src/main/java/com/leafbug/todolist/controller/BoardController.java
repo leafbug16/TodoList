@@ -165,7 +165,7 @@ public class BoardController {
 			return "viewGuide";
 		} else if("notice".equals(mode)) {
 			return "viewNotice";
-		} else if("myReport".equals(mode)) {
+		} else if("report".equals(mode)) {
 			return "viewReport";
 		} else {
 			return "viewFree";
@@ -174,8 +174,9 @@ public class BoardController {
 	
 	//게시판 글쓰기로 이동
 	@GetMapping("/write")
-	public String write(Model m, HttpSession session) {
+	public String write(Model m, String mode, HttpSession session) {
 		m.addAttribute("sessionId", session.getAttribute("id")+"");
+		m.addAttribute("mode", mode);
 		return "write";
 	}
 	
@@ -218,7 +219,7 @@ public class BoardController {
 	
 	//글 수정
 	@GetMapping("/modify")
-	public String modify(Integer bno, Model m, HttpSession session, RedirectAttributes redatt) {
+	public String modify(Integer bno, String mode, Model m, HttpSession session, RedirectAttributes redatt) {
 		try {
 			Board board = boardService.read(bno);
 			if (session.getAttribute("id") == null || !board.getWriter().equals(session.getAttribute("id"))) {
@@ -227,6 +228,7 @@ public class BoardController {
 			}
 			m.addAttribute("board", board);
 			m.addAttribute("sessionId", session.getAttribute("id")+"");
+			m.addAttribute("mode", mode);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -234,14 +236,15 @@ public class BoardController {
 	}
 	
 	@PostMapping("/modify")
-	public String modifyy(Board board, Model m, HttpSession session, RedirectAttributes redatt) {
+	public String modifyy(Board board, String mode, Model m, HttpSession session, RedirectAttributes redatt) {
 		String writer = session.getAttribute("id")+"";
 		board.setWriter(writer);
+		int bno = board.getBno();
 		try {
 			int rowCnt = boardService.modify(board);
 			if(rowCnt!=1) throw new Exception("modify_Error");
 			redatt.addFlashAttribute("msg", "modify_ok");
-			return "redirect:/board/listFree";
+			return "redirect:/board/read?bno="+bno+"&mode="+mode;
 		} catch (Exception e) {
 			e.printStackTrace();
 			m.addAttribute("board", board);

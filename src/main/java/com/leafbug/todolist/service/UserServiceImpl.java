@@ -14,19 +14,19 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	UserDAO userDAO;
 	
-	//회원 가입
+	//회원가입
 	@Override
 	public int addUser(User user) throws Exception {
 		return userDAO.insert(user);
 	}
 	
-	//로그인 id, pwd 대조
+	//로그인 id/pwd 대조
 	@Override
 	public User findUser(String id) throws Exception {
 		return userDAO.select(id);
 	}
 	
-	//user 삭제
+	//유저 삭제
 	@Override
 	public int removeUser(String id) throws Exception {
 		return userDAO.delete(id);

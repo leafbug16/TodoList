@@ -62,7 +62,7 @@
         </tbody>
     </table>
     <!-- 페이지네이션 시작 --> 
-	<a href="<c:url value='/board/write'/>">글쓰기</a>
+	<a href="<c:url value='/board/write?mode=free'/>">글쓰기</a>
 	  <nav>
 	  <ul>
 	  	<c:if test="${ph.showPrev }">

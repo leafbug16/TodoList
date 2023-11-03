@@ -29,7 +29,7 @@
         <tr>
           <td>
             <select name="option" style="width: 130px; display: inline-block">
-              <option value="W" ${ph.sc.option=='W' ? "selected" : "" }>글쓴이</option>
+              <option value="W" ${ph.sc.option=='W' ? "selected" : "" }>아이디</option>
             </select>
             <input type="text" name="keyword" id="search"
               value='${ph.sc.keyword }' style="width: 300px; display: inline-block">
@@ -54,8 +54,9 @@
                 <td>${user.id }</td>
                 <td>${user.pwd }</td>
                 <td>${user.email }</td>
-                <td>${user.regDate }</td>
-                <td><a href="<c:url value='/user/remove?id=${user.id }&page=${page }&pageSize=${pageSize }'/>" onclick="return confirm('정말 삭제하시겠습니까?')">안녕</a></td>
+                <fmt:formatDate value="${user.regDate }" type="date" pattern="yyyy-MM-dd HH:mm" var="regDate" />
+                <td>${regDate }</td>
+                <td><a href="<c:url value='/user/remove?id=${user.id }&page=${page }&pageSize=${pageSize }'/>" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a></td>
             </tr>
             </c:forEach>
         </tbody>
@@ -85,8 +86,8 @@
 
 	<script>
 		let msg="${msg}";
-		if(msg=="del") alert("보내버렸습니다");
-		if(msg=="error") alert("손절을 실패했습니다");
+		if(msg=="del") alert("성공");
+		if(msg=="error") alert("실패");
 	</script>
 </body>
 

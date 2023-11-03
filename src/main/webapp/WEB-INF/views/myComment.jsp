@@ -37,7 +37,7 @@
         	<c:forEach var="board" items="${list }">
             <tr>
                 <td>${board.comment }</td>
-                <td><a href="<c:url value='/board/read?bno=${board.bno }&mode=myComment'/>">${board.title }</a></td>
+                <td><a href="<c:url value='/board/read?bno=${board.bno }&mode=${board.boardType }'/>">${board.title }</a></td>
                 <td>${board.writer }</td>
             </tr>
             </c:forEach>

@@ -19,9 +19,9 @@
 	    <c:choose>
 	    	<c:when test="${sessionId eq 'admin' }">
 	    		<select name="boardType">
-	    			<option value="guide">가이드</option>
-	    			<option value="notice" selected>공지사항</option>
-	    			<option value="free">자유게시판</option>
+	    			<option value="guide" ${mode eq 'guide' ? 'selected' : ''}>가이드</option>
+		            <option value="notice" ${mode eq 'notice' ? 'selected' : ''}>공지사항</option>
+		            <option value="free" ${mode eq 'free' ? 'selected' : ''}>자유게시판</option>
 	    		</select>
 	    	</c:when>
 	    	<c:otherwise>

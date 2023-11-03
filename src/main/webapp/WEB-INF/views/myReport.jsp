@@ -37,7 +37,7 @@
         	<c:forEach var="board" items="${list }">
             <tr>
                 <td>${board.boardType }</td>
-                <td><a href="<c:url value='/board/read?bno=${board.bno }&mode=myReport'/>">${board.title }</a></td>
+                <td><a href="<c:url value='/board/read?bno=${board.bno }&mode=${board.boardType }'/>">${board.title }</a></td>
                 <fmt:formatDate value="${board.regDate }" type="date" pattern="yyyy-MM-dd HH:mm" var="reg_date" />
                 <td>${reg_date }</td>
             </tr>

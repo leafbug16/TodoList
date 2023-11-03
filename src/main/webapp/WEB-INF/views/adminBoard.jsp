@@ -22,6 +22,23 @@
     <a href="<c:url value='/board/listAll'/>">게시판 글 관리</a>
     <a href="<c:url value='/user/listAll'/>">회원 관리</a>
     <a href="<c:url value='/board/listReported'/>">문의/bug report 관리</a>
+    <!-- 검색폼 -->
+    <form action="<c:url value='/board/listAll'/>" method="get">
+      <table>
+        <tr>
+          <td>
+            <select name="option" style="width: 130px; display: inline-block">
+              <option value="A" ${ph.sc.option=='A' || ph.sc.option=='' ? "selected" : "" }>제목+내용</option>
+              <option value="T" ${ph.sc.option=='T' ? "selected" : "" }>제목</option>
+              <option value="W" ${ph.sc.option=='W' ? "selected" : "" }>글쓴이</option>
+            </select>
+            <input type="text" name="keyword" id="search"
+              value='${ph.sc.keyword }' style="width: 300px; display: inline-block">
+            <button>검색</button>
+          </td>
+        </tr>
+      </table>
+    </form>
     <table>
         <thead>
             <tr>
@@ -37,7 +54,7 @@
         	<c:forEach var="board" items="${list }">
             <tr>
                 <td>${board.boardType }</td>
-                <td><a href="<c:url value='/board/read?bno=${board.bno }&mode=myLike'/>">${board.title }</a></td>
+                <td><a href="<c:url value='/board/read?bno=${board.bno }&mode=${board.boardType }'/>">${board.title }</a></td>
                 <td>${board.writer }</td>
                 <fmt:formatDate value="${board.regDate }" type="date" pattern="yyyy-MM-dd HH:mm" var="reg_date" />
                 <td>${reg_date }</td>
@@ -51,18 +68,18 @@
 	<nav>
 	  <ul>
 	  	<c:if test="${ph.showPrev }">
-		    <li>
-		      <a href="<c:url value='/board/listMyLike?page=${ph.beginPage-1 }&pageSize=${ph.pageSize }'/>" aria-label="Previous">
+		    <li class="page-item">
+		      <a class="page-link" href="<c:url value='/board/listAll${ph.sc.getQueryString(ph.beginPage-1) }'/>" aria-label="Previous">
 		        <span aria-hidden="true">&laquo;</span>
 		      </a>
 		    </li>
 	    </c:if>
 	    <c:forEach var="i" begin="${ph.beginPage }" end="${ph.endPage }">
-	    	<li ${ph.page==i? 'active':'' }"><a href="<c:url value='/board/listMyLike?page=${i }&pageSize=${ph.pageSize }' />">${i }</a></li>
+	    	<li class="page-item ${ph.sc.page==i? 'active':'' }"><a class="page-link" href="<c:url value='/board/listAll${ph.sc.getQueryString(i) }' />">${i }</a></li>
 	    </c:forEach>
 	    <c:if test="${ph.showNext }">
-		    <li>
-		      <a href="<c:url value='/board/listMyLike?page=${ph.endPage+1 }&pageSize=${ph.pageSize }'/>" aria-label="Next">
+		    <li class="page-item">
+		      <a class="page-link" href="<c:url value='/board/listAll${ph.sc.getQueryString(ph.endPage+1) }'/>" aria-label="Next">
 		        <span aria-hidden="true">&raquo;</span>
 		      </a>
 		    </li>

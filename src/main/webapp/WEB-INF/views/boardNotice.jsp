@@ -63,7 +63,7 @@
     </table>
     <!-- 페이지네이션 시작 --> 
 	<c:if test="${sessionId eq 'admin' }">
-		<a href="<c:url value='/board/write'/>">글쓰기</a>    
+		<a href="<c:url value='/board/write?mode=notice'/>">글쓰기</a>    
     </c:if>
 	  <nav>
 	  <ul>

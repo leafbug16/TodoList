@@ -123,6 +123,17 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.selectCntMyComment(map);
 	}
 	
+	//내가 쓴 report 목록 조회
+	@Override
+	public List<Board> getMyReport(Map map) throws Exception {
+		return boardDAO.selectMyReport(map);
+	}
+	
+	@Override
+	public int getCntMyReport(Map map) throws Exception {
+		return boardDAO.selectCntMyReport(map);
+	}
+	
 	
 }
 

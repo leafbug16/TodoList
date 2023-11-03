@@ -35,30 +35,30 @@
         	<c:forEach var="board" items="${list }">
             <tr>
                 <td>${board.boardType }</td>
-                <td><a href="<c:url value='/board/read?bno=${board.bno }&${ph.sc.queryString }&mode=myReport'/>">${board.title }</a></td>
+                <td><a href="<c:url value='/board/read?bno?bno=${board.bno }&mode=myReport'/>">${board.title }</a></td>
                 <fmt:formatDate value="${board.regDate }" type="date" pattern="yyyy-MM-dd HH:mm" var="reg_date" />
                 <td>${reg_date }</td>
             </tr>
             </c:forEach>
         </tbody>
     </table>
-    <!-- 페이지네이션 시작 --> 
 	<a href="<c:url value='/board/writeReport'/>">문의/bug report</a>    
+    <!-- 페이지네이션 시작 --> 
 	<nav>
 	  <ul>
 	  	<c:if test="${ph.showPrev }">
-		    <li class="page-item">
-		      <a class="page-link" href="<c:url value='/board/listReport${ph.sc.getQueryString(ph.beginPage-1) }'/>" aria-label="Previous">
+		    <li>
+		      <a href="<c:url value='/board/listMyReport?page=${ph.beginPage-1 }&pageSize=${ph.pageSize }'/>" aria-label="Previous">
 		        <span aria-hidden="true">&laquo;</span>
 		      </a>
 		    </li>
 	    </c:if>
 	    <c:forEach var="i" begin="${ph.beginPage }" end="${ph.endPage }">
-	    	<li class="page-item ${ph.sc.page==i? 'active':'' }"><a class="page-link" href="<c:url value='/board/listReport${ph.sc.getQueryString(i) }' />">${i }</a></li>
+	    	<li ${ph.page==i? 'active':'' }"><a href="<c:url value='/board/listMyReport?page=${i }&pageSize=${ph.pageSize }' />">${i }</a></li>
 	    </c:forEach>
 	    <c:if test="${ph.showNext }">
-		    <li class="page-item">
-		      <a class="page-link" href="<c:url value='/board/listReport${ph.sc.getQueryString(ph.endPage+1) }'/>" aria-label="Next">
+		    <li>
+		      <a href="<c:url value='/board/listMyReport?page=${ph.endPage+1 }&pageSize=${ph.pageSize }'/>" aria-label="Next">
 		        <span aria-hidden="true">&raquo;</span>
 		      </a>
 		    </li>
@@ -68,11 +68,7 @@
 
 	<script>
 		let msg="${msg}";
-		if(msg=="del") alert("성공적으로 삭제되었습니다");
-		if(msg=="error") alert("삭제를 실패했습니다");
 		if(msg=="write_ok") alert("성공적으로 등록되었습니다");
-		if(msg=="modify_error") alert("작성자만 수정할 수 있습니다");
-		if(msg=="modify_ok") alert("수정 성공");
 	</script>
 </body>
 

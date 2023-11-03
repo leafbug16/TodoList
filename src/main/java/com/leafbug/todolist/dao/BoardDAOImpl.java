@@ -149,6 +149,17 @@ public class BoardDAOImpl implements BoardDAO {
 		return session.selectOne(namespace+"selectCntMyComment", map);
 	}
 	
+	//내가 쓴 report 목록 조회
+	@Override
+	public List<Board> selectMyReport(Map map) throws Exception {
+		return session.selectList(namespace+"selectMyReport", map);
+	}
+	
+	@Override
+	public int selectCntMyReport(Map map) throws Exception {
+		return session.selectOne(namespace+"selectCntMyReport", map);
+	}
+	
 	
 	
 }

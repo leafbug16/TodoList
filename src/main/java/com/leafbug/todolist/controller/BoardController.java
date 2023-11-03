@@ -112,27 +112,6 @@ public class BoardController {
 		return "boardFree";
 	}
 	
-	@GetMapping("/listMyReport")
-	public String listReport(SearchCondition sc, HttpServletRequest request, Model m, HttpSession session) {	
-		m.addAttribute("sessionId", session.getAttribute("id")+"");
-		
-		try {
-			int totalCnt = boardService.getSearchResultCntReport(sc);
-			PageHandler pageHandler = new PageHandler(totalCnt, sc);
-			
-			List<Board> list = boardService.getSearchResultPageReport(sc);
-			m.addAttribute("list", list);
-			m.addAttribute("ph", pageHandler);
-			
-			Date now = new Date();
-			m.addAttribute("now", now);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "boardReport";
-	}
-	
 	@GetMapping("/listReported")
 	public String listReported(SearchCondition sc, HttpServletRequest request, Model m, HttpSession session) {	
 		m.addAttribute("sessionId", session.getAttribute("id")+"");
@@ -330,6 +309,28 @@ public class BoardController {
 			e.printStackTrace();
 		}
 		return "myPost";
+	}
+	
+	@GetMapping("/listMyReport")
+	public String listMyReport(Integer page, Integer pageSize, HttpSession session, Model m) {
+		if(page==null) page = 1;
+		if(pageSize==null) pageSize = 15;
+		try {
+			Map map = new HashMap();
+			map.put("id", session.getAttribute("id")+"");
+			map.put("offset", (page-1)*pageSize);
+			map.put("pageSize", pageSize);
+			
+			int totalCnt = boardService.getCntMyReport(map);
+			PageHandler2 ph = new PageHandler2(session.getAttribute("id")+"", totalCnt, page, pageSize);
+			m.addAttribute("ph", ph);			
+			
+			List<Board> list = boardService.getMyReport(map);
+			m.addAttribute("list", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "myReport";
 	}
 	
 	@GetMapping("/listMyComment")

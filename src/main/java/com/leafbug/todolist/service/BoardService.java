@@ -47,6 +47,10 @@ public interface BoardService {
 	List<Board> getMyComment(Map map) throws Exception;
 
 	int getCntMyComment(Map map) throws Exception;
+	
+	List<Board> getMyReport(Map map) throws Exception;
+	
+	int getCntMyReport(Map map) throws Exception;
 
 
 }

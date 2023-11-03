@@ -53,6 +53,9 @@ public interface BoardDAO {
 	List<Board> searchSelectPageReport(SearchCondition sc) throws Exception;
 
 	int searchResultCntReport(SearchCondition sc) throws Exception;
-
+	
+	List<Board> selectMyReport(Map map) throws Exception;
+	
+	int selectCntMyReport(Map map) throws Exception;
 
 }

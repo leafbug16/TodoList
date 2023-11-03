@@ -145,10 +145,14 @@ public class BoardController {
 		} catch (Exception e) {
 			System.out.println("board/read 오류");
 			e.printStackTrace();
+			
+			//list"+mode로 간소화 할 예정
 			if("guide".equals(mode)) {
 				return "redirect:/board/listGuide"+sc.getQueryString();
 			} else if("notice".equals(mode)) {
 				return "redirect:/board/listNotice"+sc.getQueryString();
+			} else if("free".equals(mode)) {
+				return "redirect:/board/listFree"+sc.getQueryString();
 			} else if("myLike".equals(mode)) {
 				return "redirect:/board/listMyLike";
 			} else if("myReport".equals(mode)) {
@@ -193,16 +197,17 @@ public class BoardController {
 				throw new Exception("Write Error");
 			}
 			redatt.addFlashAttribute("msg", "write_ok");
-			if("report".equals(boardType)) {
-				return "redirect:/board/listMyReport";
-			}
+
 			if("guide".equals(boardType)) {
 				return "redirect:/board/listGuide";
 			} else if("notice".equals(boardType)) {
 				return "redirect:/board/listNotice";
+			} else if("report".equals(boardType)) {
+				return "redirect:/board/listMyReport";
 			} else {
 				return "redirect:/board/listFree";		
 			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			m.addAttribute("board", board);
@@ -258,13 +263,20 @@ public class BoardController {
 			e.printStackTrace();
 			redatt.addFlashAttribute("msg", "error");
 		}
-		if("adminBoard".equals(mode)) {
+		if("guide".equals(mode)) {
+			return "redirect:/board/listGuide";
+		} else if("notice".equals(mode)) {
+			return "redirect:/board/listNotice";
+		} else if("free".equals(mode)) {
+			return "redirect:/board/listFree";
+		} else if("adminBoard".equals(mode)) {
 			return "redirect:/board/listAll";
 		} else if("adminReported".equals(mode)) {
 			return "redirect:/board/listReported";
 		} else {
-			return "redirect:/board/listFree";			
+			return "redirect:/board/listFree";		
 		}
+
 	}
 	
 	@GetMapping("/listMyLike")
@@ -283,6 +295,7 @@ public class BoardController {
 			
 			List<Board> list = boardService.getResultPageLike(map);
 			m.addAttribute("list", list);
+			m.addAttribute("sessionId", session.getAttribute("id")+"");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -305,6 +318,8 @@ public class BoardController {
 			
 			List<Board> list = boardService.getMyPost(map);
 			m.addAttribute("list", list);
+			//회원탈퇴용 세션 아이디
+			m.addAttribute("sessionId", session.getAttribute("id")+"");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -327,6 +342,8 @@ public class BoardController {
 			
 			List<Board> list = boardService.getMyReport(map);
 			m.addAttribute("list", list);
+			//회원탈퇴용 세션 아이디
+			m.addAttribute("sessionId", session.getAttribute("id")+"");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -349,6 +366,8 @@ public class BoardController {
 			
 			List<Board> list = boardService.getMyComment(map);
 			m.addAttribute("list", list);
+			//회원탈퇴용 세션 아이디
+			m.addAttribute("sessionId", session.getAttribute("id")+"");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -357,29 +376,6 @@ public class BoardController {
 
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

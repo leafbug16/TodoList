@@ -12,13 +12,13 @@
 </head>
 
 <body>
-	<form name="writeFrm">
+	<form>
 	<h2>글 상세보기(Report)</h2>
 	<table class="table text-center border">
 	    <thead>
 	    	<tr>
 	            <th>${board.writer }</th>
-	            <fmt:formatDate value="${boardDto.regDate }" type="date" pattern="yyyy-MM-dd HH:mm" var="regDate" />
+	            <fmt:formatDate value="${board.regDate }" type="date" pattern="yyyy-MM-dd HH:mm" var="regDate" />
 	            <th>${regDate }</th>
 	       	</tr>
 	    </thead>

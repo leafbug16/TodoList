@@ -22,7 +22,9 @@
     <a href="<c:url value='/board/listMyLike'/>">추천한 글</a>
     <a href="<c:url value='/board/listMyPost'/>">작성한 글</a>
     <a href="<c:url value='/board/listMyComment'/>">작성한 댓글</a>
-    <a href="<c:url value='/board/listMyReport'/>">문의/bug report 내역</a>
+    <a href="<c:url value='/board/listMyReport'/>">문의/bug report 내역</a><br>
+    <a href="<c:url value='/user/remove?id=${sessionId }&mode=selfRemove'/>" onclick="return confirm('정말 탈퇴하시겠습니까?')">회원 탈퇴</a>
+    ${sessionId }
     <table>
         <thead>
             <tr>

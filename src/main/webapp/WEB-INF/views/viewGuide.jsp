@@ -36,7 +36,7 @@
 	</form>
 	<c:choose>
 		<c:when test="${sessionId eq 'admin' }">
-			<a href="<c:url value='/board/listFree?${searchCondition.queryString }'/>">목록</a>
+			<a href="<c:url value='/board/listGuide?${searchCondition.queryString }'/>">목록</a>
 			<a onclick="deletePost()">삭제</a>
 			<a href="<c:url value='/board/modify?bno=${boardDto.bno }&page=${page }&pageSize=${pageSize }'/>">수정</a>
 		</c:when>
@@ -53,7 +53,7 @@
 			if(confirmed){
 				var form = document.writeFrm;
 				form.method = "post";
-				form.action = "<c:url value='/board/remove'/>?bno=${board.bno }&page=${page }&pageSize=${pageSize }";
+				form.action = "<c:url value='/board/remove'/>?bno=${board.bno }&page=${page }&pageSize=${pageSize }&mode=guide";
 				form.submit();
 			}
 		}

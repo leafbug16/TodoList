@@ -46,7 +46,7 @@ public class UserController {
 	
 	//유저 삭제
 	@RequestMapping("/remove")
-	public String remove(String id, RedirectAttributes redatt) {
+	public String remove(String id, String mode, RedirectAttributes redatt) {
 		try {
 			int rowCnt = userSerivce.removeUser(id);
 			if(rowCnt==1) {
@@ -58,7 +58,13 @@ public class UserController {
 			e.printStackTrace();
 			redatt.addFlashAttribute("msg", "error");
 		}
-		return "redirect:/user/listAll";
+		System.out.println(mode);
+		if("selfRemove".equals(mode)) {
+			System.out.println("여기실행됨 userController");
+			return "redirect:/login/logout";
+		} else {
+			return "redirect:/user/listAll";
+		}
 	}
 	
 	

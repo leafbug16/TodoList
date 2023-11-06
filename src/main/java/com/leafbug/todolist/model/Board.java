@@ -18,8 +18,9 @@ public class Board {
 		super();
 	}
 	
-	public Board(String title, String content, String writer) {
+	public Board(String boardType, String title, String content, String writer) {
 		super();
+		this.boardType = boardType;
 		this.title = title;
 		this.content = content;
 		this.writer = writer;

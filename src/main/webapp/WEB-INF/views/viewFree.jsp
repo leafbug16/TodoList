@@ -28,7 +28,7 @@
 	            <td colspan="4"><input type="text" name="title" value="${board.title }" readonly></td>
 	        </tr>
 	        <tr>
-	            <td colspan="4"><textarea class="form-control" name="title" style="height:350px" readonly>${board.content }</textarea></td>
+	            <td colspan="4"><textarea class="form-control" name="content" style="height:350px" readonly>${board.content }</textarea></td>
 	        </tr>
 	    </tbody>
 	</table>

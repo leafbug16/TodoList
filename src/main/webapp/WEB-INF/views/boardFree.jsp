@@ -3,87 +3,113 @@
 <%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html>
+<html lang="kr">
 
 <head>
     <meta charset="UTF-8">
-    <title>게시판 테스트</title>
-    <style>
-    	#title {
-    		display: inline-block;
-    	}
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My TodoList</title>
+    <link rel="stylesheet" href="<c:url value='/css/board.css'/>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <h2 id="title">자유게시판</h2>    
-    <a href="<c:url value='/'/>">할일로 돌아가기</a><br>
-    <a href="<c:url value='/board/listGuide'/>">가이드</a>
-    <a href="<c:url value='/board/listNotice'/>">공지사항</a>
-    <a href="<c:url value='/board/listFree'/>">자유게시판</a>
-    <!-- 검색폼 -->
-    <form action="<c:url value='/board/listFree'/>" method="get">
-      <table>
-        <tr>
-          <td>
-            <select name="option" style="width: 130px; display: inline-block">
-              <option value="A" ${ph.sc.option=='A' || ph.sc.option=='' ? "selected" : "" }>제목+내용</option>
-              <option value="T" ${ph.sc.option=='T' ? "selected" : "" }>제목</option>
-              <option value="W" ${ph.sc.option=='W' ? "selected" : "" }>글쓴이</option>
-            </select>
-            <input type="text" name="keyword" id="search"
-              value='${ph.sc.keyword }' style="width: 300px; display: inline-block">
-            <button>검색</button>
-          </td>
-        </tr>
-      </table>
-    </form>
-    <table>
-        <thead>
-            <tr>
-                <th>번호</th>
-                <th>제목</th>
-                <th>글쓴이</th>
-                <th>등록일</th>
-                <th>조회</th>
-            </tr>
-        </thead>
-        <tbody>
-        	<c:forEach var="board" items="${list }">
-            <tr>
-                <td>${board.bno }</td>
-                <td><a href="<c:url value='/board/read?bno=${board.bno }&${ph.sc.queryString }&mode=free'/>">${board.title }</a></td>
-                <td>${board.writer }</td>
-                <fmt:formatDate value="${board.regDate }" type="date" pattern="yyyy-MM-dd HH:mm" var="reg_date" />
-                <td>${reg_date }</td>
-                <td>${board.views }</td>
-            </tr>
-            </c:forEach>
-        </tbody>
-    </table>
-    <!-- 페이지네이션 시작 --> 
-	<a href="<c:url value='/board/write?mode=free'/>">글쓰기</a>
-	  <nav>
-	  <ul>
-	  	<c:if test="${ph.showPrev }">
-		    <li class="page-item">
-		      <a class="page-link" href="<c:url value='/board/listFree${ph.sc.getQueryString(ph.beginPage-1) }'/>" aria-label="Previous">
-		        <span aria-hidden="true">&laquo;</span>
-		      </a>
-		    </li>
-	    </c:if>
-	    <c:forEach var="i" begin="${ph.beginPage }" end="${ph.endPage }">
-	    	<li class="page-item ${ph.sc.page==i? 'active':'' }"><a class="page-link" href="<c:url value='/board/listFree${ph.sc.getQueryString(i) }' />">${i }</a></li>
-	    </c:forEach>
-	    <c:if test="${ph.showNext }">
-		    <li class="page-item">
-		      <a class="page-link" href="<c:url value='/board/listFree${ph.sc.getQueryString(ph.endPage+1) }'/>" aria-label="Next">
-		        <span aria-hidden="true">&raquo;</span>
-		      </a>
-		    </li>
-	    </c:if>
-	  </ul>
-	</nav>
+	<%@include file="navi.jsp" %>
+	<div id="board-wrap">
+        <div id="board-wrap-center">
+            <!-- 게시판 설명 -->
+            <div id="board-info">
+                <h3>자유게시판</h3>
+            </div>
+
+            <!-- 게시판 -->
+            <div id="main">
+                <div id="board">
+                    <table id="board-table">
+                        <thead>
+                            <tr id="first-tr">
+                                <th>번호</th>
+                                <th>제목</th>
+                                <th>글쓴이</th>
+                                <th>등록일</th>
+                                <th>조회</th>
+                                <th>좋아요</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        	<c:forEach var="board" items="${list }">
+	                            <tr>
+	                                <td>${board.bno }</td>
+	                                <td><a href="<c:url value='/board/read?bno=${board.bno }&${ph.sc.queryString }&mode=free'/>">${board.title }</a></td>
+	                                <td>${board.writer }</td>
+	                                <fmt:formatDate value="${board.regDate }" type="date" pattern="yyyy-MM-dd HH:mm" var="regDate" />
+	                				<td>${regDate }</td>
+	                                <td>${board.views }</td>
+	                                <td>${board.likes }</td>
+	                            </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 글쓰기 버튼 -->
+            <div id="write-button">
+                <button type="button" onclick="location.href='<c:url value='/board/write?mode=free'/>'">글쓰기</button>
+            </div>
+
+            <!-- 페이지네이션 -->
+            <div id="pagenation">
+                <ul>
+				  	<c:if test="${ph.showPrev }">
+					    <li>
+					      <a href="<c:url value='/board/listFree${ph.sc.getQueryString(ph.beginPage-1) }'/>" aria-label="Previous">
+					        <span aria-hidden="true">&laquo;</span>
+					      </a>
+					    </li>
+				    </c:if>
+				    <c:forEach var="i" begin="${ph.beginPage }" end="${ph.endPage }">
+				    	<li><a class=" ${ph.sc.page==i? 'active':'' }" href="<c:url value='/board/listFree${ph.sc.getQueryString(i) }' />">${i }</a></li>
+				    </c:forEach>
+				    <c:if test="${ph.showNext }">
+					    <li>
+					      <a href="<c:url value='/board/listFree${ph.sc.getQueryString(ph.endPage+1) }'/>" aria-label="Next">
+					        <span aria-hidden="true">&raquo;</span>
+					      </a>
+					    </li>
+				    </c:if>
+				</ul>
+            </div>
+
+            <!-- 검색폼 -->
+            <div id="search-area">
+                <form action="<c:url value='/board/listFree'/>" method="get">
+                    <div id="search-area-flex">
+                        
+                        <!-- 셀렉트 -->
+                        <div id="select">
+                            <select name="option">
+                                <option value="A" ${ph.sc.option=='A' || ph.sc.option=='' ? "selected" : "" }>제목+내용</option>
+                                <option value="T" ${ph.sc.option=='T' ? "selected" : "" }>제목</option>
+                                <option value="W" ${ph.sc.option=='W' ? "selected" : "" }>글쓴이</option>
+                            </select>
+                        </div>
+
+                        <div id="search">
+                            <input type="text" name="keyword" value="${ph.sc.keyword }" placeholder="검색어를 입력하세요">
+                            <button>검색</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    
+    <%@include file="footer.jsp" %>
 
 	<script>
 		let msg="${msg}";

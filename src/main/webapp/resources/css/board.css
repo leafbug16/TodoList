@@ -1,0 +1,186 @@
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 전체 구도 */
+#board-wrap {
+    text-align: center;
+}
+#board-wrap-center {
+    display: inline-block;
+    width: 1280px;
+    min-height: 600px;
+}
+
+/* 게시판 설명 */
+#board-info {
+    text-align: left;
+}
+
+/* 게시판 */
+#board {
+    width: 1280px;
+    min-height: 100px;
+}
+
+#board-table {
+    border: 1px solid black;
+    border-left: none;
+    border-right: none;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#first-tr {
+    border-top: 2px solid rgb(61, 61, 61);
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    height: 47px;
+    background-color: rgb(88, 62, 236);
+    color: white;
+}
+
+tr {
+    border: 1px solid rgb(165, 165, 165);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    height: 35px;
+}
+
+tr:hover {
+  background: lightgray;
+}
+
+td a {
+	text-decoration: none;
+	color: black;
+}
+
+td a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+th:nth-child(1) {
+    width: 8%;
+}
+
+th:nth-child(2) {
+    width: 60%;
+}
+
+td:nth-child(2) {
+    text-align: left;
+}
+
+/* 글쓰기 버튼 */
+#write-button {
+    width: 80px;
+    height: 40px;
+    background: blue;
+    position: relative;
+    top: 10px;
+    left: 1200px;
+}
+#write-button button {
+    width: 100%;
+    height: 100%;
+    background: rgb(88, 62, 236);
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+}
+
+/* 페이지네이션 */
+#pagenation {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+#pagenation ul {
+    width: 350px;
+    height: 40px;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+}
+
+#pagenation ul li a {
+    display: inline-block;
+    padding: 5px 10px 5px 10px;
+    text-decoration: none;
+    color: black;
+}
+
+/* 페이지네이션 active 시 빨갛게 변함 */
+.active {
+    border: 1px solid lightgray !important;
+    color: red !important;
+    text-decoration: underline !important;
+}
+
+/* 검색폼 */
+#search-area {
+    width: 1280px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+#search-area-flex {
+    width: 500px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#select select {
+    width: 100px;
+    height: 35px;
+    font-size: 15px;
+    margin-right: 5px;
+}
+
+#search {
+    display: flex;
+    align-items: center;
+    background: rgb(88, 62, 236);
+}
+
+#search input {
+    width: 350px;
+    height: 45px;
+    font-size: 17px;
+    border: 0;
+    outline: none;
+    float:left;
+    margin-left: 1px;
+}
+
+#search button {
+    width: 51px;
+    height: 49px;
+    font-size: 17px;
+    border: none;
+    float: right;
+    background:rgb(88, 62, 236);
+    color: white;
+}

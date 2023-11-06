@@ -1,0 +1,77 @@
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+/* 전체 구도 */
+#wrap {
+    text-align: center;
+}
+#wrap-center {
+    display: inline-block;
+    width: 470px;
+    height: 522px;
+    margin-top: 150px;
+    border: 1px solid black;
+}
+
+/* 아이디, 비밀번호, 비밀번호 확인, 이메일 */
+#input-id, #input-pwd, #input-pwd-check, #input-email {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 30px;
+}
+
+/* 이메일, 비밀번호만 따로 조정(간격 조절) */
+#input-email {
+    padding-bottom: 5px;
+}
+
+#input-pwd {
+    padding-top: 0px;
+}
+
+/* input, label 조절 */
+
+#input-id label, #input-pwd label, #input-pwd-check label,
+#input-email label {
+    flex-basis: 30%;
+    font-size: 20px;
+}
+
+#input-id input, #input-pwd input,
+#input-pwd-check input, #input-email input {
+    flex-basis: 70%;
+    width: 250px;
+    height: 30px;
+    margin-right: 20px;
+    font-size: 17px;
+}
+
+/* 이메일 입력 정보 */
+#email-info {
+    display: flex;
+    justify-content: start;
+    text-align: left;
+}
+
+#email-info span {
+    padding-left: 40px;
+    color: gray;
+}
+
+/* 버튼(회원가입) */
+#input-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#input-button button {
+    flex-basis: 90%;
+    height: 40px;
+    background-color: rgb(88, 62, 236);
+    font-size: 20px;
+    font-weight: bolder;
+    color: white;
+    cursor: pointer;
+}

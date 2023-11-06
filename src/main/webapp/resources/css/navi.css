@@ -1,0 +1,83 @@
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 전체 구도 */
+#navi-wrap {
+    text-align: center;
+}
+#navi-wrap-center {
+    display: inline-block;
+    width: 1280px;
+    height: 90px;
+}
+
+/* header 설정 */
+#header {
+    width: 1280px;
+    height: 90px;
+    display: flex;
+}
+
+/* 로고 설정 */
+#header-logo h1 a {
+    text-decoration: none;
+    color: black;
+}
+
+
+/* 네비게이션 메뉴 설정 */
+#nav ul {
+    width: 250px;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    position: relative;
+    top: 19px;
+}
+
+#nav ul li {
+    list-style: none;
+}
+
+#nav ul li a {
+    text-decoration: none;
+    color: black;
+    font-size: 1.2em;
+}
+
+/* 햄버거 메뉴 설정 */
+#header-hamburger {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    position: relative;
+    top: 21px;
+    left: 755px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+#header-hamburger > div {
+    width: 50px;
+    height: 50px;
+    background-image: url("../img/hamburger.png");
+    background-size: cover;
+}
+
+/* 헤더 메인 구분선 */
+#navi-spacing hr {
+    border: none;
+    height: 1px;
+    background-color: rgb(88, 62, 236);
+}

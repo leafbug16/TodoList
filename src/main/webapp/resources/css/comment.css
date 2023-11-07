@@ -1,0 +1,142 @@
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ÀüÃ¼ ±¸µµ */
+#comment-wrap {
+    text-align: center;
+}
+#comment-wrap-center {
+    display: inline-block;
+    width: 1280px;
+    min-height: 300px;
+}
+
+/* ´ñ±Û ±Û¾¾ */
+#comment-header {
+    text-align: left;
+}
+
+#comment-header hr {
+    border: none;
+    width: 1280px;
+    height: 1px;
+    background-color: rgb(88, 62, 236);
+}
+
+/* commentlist */
+#comment-ul {
+    list-style: none;
+}
+
+#comment-li {
+	width: 1280px;
+}
+
+#comment-div {
+    display: flex;
+    justify-content: space-between;
+}
+
+#commentlist-commenter {
+    flex-basis: 10%;
+    white-space: normal;
+    word-wrap: break-word;
+    position: relative;
+    left: -50px;
+}
+
+#commentlist-comment {
+    flex-basis: 80%;
+    white-space: normal;
+    word-wrap: break-word;
+    position: relative;
+    left: -50px;
+    text-align: left;
+}
+
+
+#comment-div button {
+    width: 30px;
+    height: 25px;
+    border: none;
+    background-color: white;
+    color: gray;
+    position: relative;
+    left: -29px;
+}
+
+#comment-hr {
+    width: 1280px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    position: relative;
+    left: -40px;
+}
+
+/* ´ñ±Û ÀÔ·Â */
+#comment-input {
+    display: flex;
+    align-items: center;
+    background: rgb(88, 62, 236);
+    margin-top: 50px;
+}
+
+#comment-input textarea {
+    width: 1200px;
+    height: 90px;
+    font-size: 17px;
+    border: 0;
+    outline: none;
+    float:left;
+    margin-left: 1px;
+    resize: none;
+}
+
+#comment-input button {
+    width: 75px;
+    height: 96px;
+    font-size: 17px;
+    border: none;
+    float: right;
+    background:rgb(88, 62, 236);
+    color: white;
+}
+
+/* ¼öÁ¤Ã¢ */
+#comment-modify {
+    display: flex;
+    align-items: center;
+    background: rgb(177, 177, 177);
+    position: relative;
+    left: -40px;
+}
+
+#comment-modify textarea {
+    width: 1200px;
+    height: 90px;
+    font-size: 17px;
+    border: 0;
+    outline: none;
+    float:left;
+    margin-left: 1px;
+    resize: none;
+}
+
+#comment-modify button {
+    width: 75px;
+    height: 96px;
+    font-size: 17px;
+    border: none;
+    float: right;
+    background:rgb(177, 177, 177);
+    color: white;
+}

@@ -90,7 +90,7 @@
 					} else {
 						$("#likeIcon").html("<button id='beforeLike' type='button'>🤍</button>");
 					}
-					$("#likeCnt").html('['+ like.resAll +']');
+					$("#likeCnt").html('좋아요['+ like.resAll +']');
 				},
 				error: function(request, status, error){ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error+"좋아요 정보 조회 중 에러") }
 			});

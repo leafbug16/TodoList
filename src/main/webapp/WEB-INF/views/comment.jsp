@@ -3,44 +3,39 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html>
+<html lang="kr">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-latest.min.js"></script>
-<style>
-	h5 {
-		margin-top: 30px;
-	}
-	#comment-li {
-		list-style: none;
-		overflow: hidden;
-	}
-	.delBtn {
-		color: lightgray;
-	}
-	.modBtnb {
-		margin-left: 50px;
-	}
-	#sendBtn {
-		margin-top: 3px;
-	}
-	#modBtn {
-		margin-top: 3px;
-	}
-	#comment-hr {
-		margin: 3px;
-	}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My TodoList</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/77d5171cb8.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="<c:url value='/css/comment.css'/>">
+	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
+
+
 <body>
-	<h5>댓글</h5>
-	<div>
-		<textarea name="comment" id="comment" style="width: 800px; height:75px; display:inline-block"></textarea>
-		<button type="button" id="sendBtn">등록</button>
-	</div>
-	<div class="mod"></div>
-	<div id="commentList"></div>
+	<div id="comment-wrap">
+        <div id="comment-wrap-center">
+
+            <div id="comment-header">
+                <h3>댓글</h3>
+                <hr/>
+            </div>
+
+            <div id="commentList">
+            </div>
+
+            <div id="comment-input">
+                <textarea name="comment" id="comment" placeholder="댓글을 작성해보세요"></textarea>
+                <button type="button" id="sendBtn">등록</button>
+            </div>
+
+        </div>
+    </div>
 	
 	<script>
 		let bno = ${board.bno };
@@ -58,15 +53,17 @@
 		}
 		
 		let toHtml = function(comments) {
-			let tmp = "<ul>";
+			let tmp = "<ul id='comment-ul'>";
 			comments.forEach(function (comment) {
 				tmp += "<li id='comment-li' data-cno="+comment.cno + " data-bno="+comment.bno + ">";
-				tmp +='<span class="commenter"><b> ['+comment.commenter+']</b></span><br>';
-				tmp +='<span class="comment"> '+comment.comment.replace(/\n/g, '<br>')+'</span>';
+				tmp += "<div id='comment-div' data-cno="+comment.cno + " data-bno="+comment.bno + ">";
+				tmp +='<span id="commentlist-commenter"><b>'+comment.commenter+'</b></span><br>';
+				tmp +='<span id="commentlist-comment"> '+comment.comment.replace(/\n/g, '<br>')+'</span>';
 				if (comment.commenter == "${sessionScope.id }") {
-					tmp += "<button type='button' class='modBtnb'>수정</button>";
-					tmp += "<button type='button' class='delBtn'>삭제</button>";
+					tmp += "<button type='button' class='modBtnb'><i class='fa-solid fa-pen'></i></button>";
+					tmp += "<button type='button' class='delBtn'><i class='fa-solid fa-x'></i></button>";
 				}
+				tmp +="</div>";
 				tmp += "</li>";
 				tmp += "<hr id='comment-hr'>";
 			})
@@ -96,16 +93,19 @@
 			
 			//댓글 옆 수정버튼 클릭 시
 			$("#commentList").on("click", ".modBtnb", function() {
+				//부모는 comment-li
 			    let cno = $(this).parent().attr("data-cno");
 			    let bno = $(this).parent().attr("data-bno");                
-			    let originalComment = $("span.comment", $(this).parent()).html().replace('<br>', '\r\n').trim();
+			    let originalComment = $("span#commentlist-comment", $(this).parent()).html().replace('<br>', '\r\n').trim();
 			    console.log(originalComment)
 			    
 			    // 대체
-			    $("span.comment", $(this).parent()).replaceWith("<textarea name='recomment' id='recomment" + cno + "' style='width: 500px; height:80px;'>"+originalComment+"</textarea>");
-			    $(this).replaceWith("<button type='button' id='modBtn'>수정</button>");
+			    //$("span#comment", $(this).parent()).replaceWith("<textarea name='recomment' id='recomment" + cno + "' style='width: 500px; height:80px;'>"+originalComment+"</textarea>");
+			    //$(this).replaceWith("<button type='button' id='modBtn'>수정</button>");
+			    
+			    $(this).parent().replaceWith("<div id='comment-modify'><textarea name='recomment' id='recomment" + cno + "'>"+originalComment+"</textarea><button type='button' id='modBtn'>수정</button></div>");
+			    //$(this).replaceWith("<button type='button' id='modBtn'>수정</button>");
 			    	    
-			    $("textarea[name=recomment]", $(this).parent()).val(originalComment);
 			    $("#modBtn").attr("data-cno", cno);
 			}); 
 			

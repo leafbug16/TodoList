@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,7 +26,8 @@ public class UserController {
 	
 	//유저 목록 조회
 	@GetMapping("/listAll")
-	public String listAll(SearchCondition sc, HttpServletRequest request, Model m) {	
+	public String listAll(SearchCondition sc, HttpServletRequest request, Model m, HttpSession session) {	
+		m.addAttribute("sessionId", session.getAttribute("id")+"");
 		
 		try {
 			int totalCnt = userSerivce.getCntUserAll(sc);

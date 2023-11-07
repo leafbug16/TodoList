@@ -43,7 +43,8 @@
                         	<c:forEach var="board" items="${list }">
 	                            <tr>
 	                                <td>${board.bno }</td>
-	                                <td><a href="<c:url value='/board/read?bno=${board.bno }&${ph.sc.queryString }&mode=free'/>">${board.title }</a></td>
+	                                <td><a href="<c:url value='/board/read?bno=${board.bno }&${ph.sc.queryString }&mode=free'/>">${board.title }
+	                                <c:if test="${board.comments != 0 }"><span id="comments" style="color: gray;">[ ${board.comments } ]</span></c:if></a></td>
 	                                <td>${board.writer }</td>
 	                                <fmt:formatDate value="${board.regDate }" type="date" pattern="yyyy-MM-dd HH:mm" var="regDate" />
 	                				<td>${regDate }</td>

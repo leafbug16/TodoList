@@ -33,7 +33,16 @@
 
                 <!-- 햄버거 메뉴 -->
                 <button id="header-hamburger">
-                    <div></div>
+                    <div id="header-hamburger-ico"></div>
+                    <div id="header-dropmenu" class="header-dropmenu-displaynone">
+                        <ul id="ul-dropmenu">
+                            <li>${sessionId }</li>
+                            <li><a href="<c:url value='/board/listMyLike'/>">마이페이지</a></li>
+                            <li><a href="<c:url value='/board/writeReport'/>">문의/bug report</a></li>
+                            <li><hr/></li>
+                            <li><a href="<c:url value='/login/logout'/>">로그아웃</a></li>
+                        </ul>
+                    </div>
                 </button>
 
             </div>
@@ -44,5 +53,7 @@
             </div>
         </div>
     </div>
+    
+    <script src="<c:url value='/js/navi.js'/>"></script>
 </body>
 </html>

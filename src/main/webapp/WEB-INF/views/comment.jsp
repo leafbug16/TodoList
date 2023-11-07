@@ -12,7 +12,7 @@
 	h5 {
 		margin-top: 30px;
 	}
-	li {
+	#comment-li {
 		list-style: none;
 		overflow: hidden;
 	}
@@ -28,7 +28,7 @@
 	#modBtn {
 		margin-top: 3px;
 	}
-	hr {
+	#comment-hr {
 		margin: 3px;
 	}
 </style>
@@ -60,7 +60,7 @@
 		let toHtml = function(comments) {
 			let tmp = "<ul>";
 			comments.forEach(function (comment) {
-				tmp += "<li data-cno="+comment.cno + " data-bno="+comment.bno + ">";
+				tmp += "<li id='comment-li' data-cno="+comment.cno + " data-bno="+comment.bno + ">";
 				tmp +='<span class="commenter"><b> ['+comment.commenter+']</b></span><br>';
 				tmp +='<span class="comment"> '+comment.comment.replace(/\n/g, '<br>')+'</span>';
 				if (comment.commenter == "${sessionScope.id }") {
@@ -68,7 +68,7 @@
 					tmp += "<button type='button' class='delBtn'>삭제</button>";
 				}
 				tmp += "</li>";
-				tmp += "<hr>";
+				tmp += "<hr id='comment-hr'>";
 			})
 			return tmp + "</ul>";
 		}

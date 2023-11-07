@@ -30,7 +30,8 @@ public class BoardController {
 	
 	//모든 게시글 조회
 	@GetMapping("/listAll")
-	public String listAll(SearchCondition sc, HttpServletRequest request, Model m) {	
+	public String listAll(SearchCondition sc, HttpServletRequest request, Model m, HttpSession session) {	
+		m.addAttribute("sessionId", session.getAttribute("id")+"");
 		
 		try {
 			int totalCnt = boardService.getSearchResultCntAll(sc);
@@ -190,6 +191,7 @@ public class BoardController {
 	@PostMapping("/write")
 	public String save(Board board, Model m, HttpSession session, RedirectAttributes redatt) {
 		String writer = session.getAttribute("id")+"";
+		m.addAttribute("sessionId", writer);
 		board.setWriter(writer);
 		String boardType = board.getBoardType();
 		try {
@@ -238,6 +240,7 @@ public class BoardController {
 	@PostMapping("/modify")
 	public String modifyy(Board board, String mode, Model m, HttpSession session, RedirectAttributes redatt) {
 		String writer = session.getAttribute("id")+"";
+		m.addAttribute("sessionId", writer);
 		board.setWriter(writer);
 		int bno = board.getBno();
 		try {
@@ -254,7 +257,9 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/remove")
-	public String remove(Integer bno, SearchCondition sc, String mode, HttpSession session, RedirectAttributes redatt) {
+	public String remove(Integer bno, SearchCondition sc, String mode, HttpSession session, RedirectAttributes redatt, Model m) {
+		m.addAttribute("sessionId", session.getAttribute("id")+"");
+		
 		try {
 			int rowCnt = boardService.remove(bno);
 			if(rowCnt==1) {
@@ -276,6 +281,8 @@ public class BoardController {
 			return "redirect:/board/listAll";
 		} else if("adminReported".equals(mode)) {
 			return "redirect:/board/listReported";
+		} else if("myReport".equals(mode)) {
+			return "redirect:/board/listMyReport";
 		} else {
 			return "redirect:/board/listFree";		
 		}

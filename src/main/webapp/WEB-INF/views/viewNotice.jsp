@@ -3,61 +3,80 @@
 <%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html data-bs-theme="dark">
+<html lang="kr">
 
 <head>
     <meta charset="UTF-8">
-    <title>공지사항</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My TodoList</title>
+    <link rel="stylesheet" href="<c:url value='/css/view.css'/>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 
 <body>
-	<form name="writeFrm">
-	<h2>글 상세보기(notice)</h2>
-	<table class="table text-center border">
-	    <thead>
-	    	<tr>
-	            <th>${board.writer }</th>
-	            <fmt:formatDate value="${board.regDate }" type="date" pattern="yyyy-MM-dd HH:mm" var="regDate" />
-	            <th>${regDate }</th>
-	            <th>조회 ${board.views }</th>
-	            <th>추천 5</th>
-	       	</tr>
-	    </thead>
-	    <tbody>
-	        <tr>
-	            <td colspan="4"><input type="text" name="title" value="${board.title }" readonly></td>
-	        </tr>
-	        <tr>
-	            <td colspan="4"><textarea class="form-control" name="title" style="height:350px" readonly>${board.content }</textarea></td>
-	        </tr>
-	    </tbody>
-	</table>
-	</form>
-	<c:choose>
-		<c:when test="${sessionId eq 'admin' }">
-			<a href="<c:url value='/board/listNotice?${searchCondition.queryString }'/>">목록</a>
-			<a onclick="deletePost()">삭제</a>
-			<a href="<c:url value='/board/modify?bno=${board.bno }&page=${page }&pageSize=${pageSize }&mode=notice'/>">수정</a>
-		</c:when>
-		<c:otherwise>
-			<a href="<c:url value='/board/listNotice?${searchCondition.queryString }'/>">목록</a>
-		</c:otherwise>
-	</c:choose>
-	<span id="likeIcon"></span>
-	<span id="likeCnt"></span>
+	<%@include file="navi.jsp" %>
+	<div id="view-wrap">
+        <div id="view-wrap-center">
+            <!-- 게시판 종류와 수정, 삭제, 목록 버튼 -->
+            <div id="view-nav">
+                <h3>공지사항</h3>
+                <c:choose>
+					<c:when test="${sessionId eq board.writer || sessionId eq 'admin'}">
+		                <div id="view-nav-button">
+		                    <button type="button" onclick="location.href='<c:url value='/board/modify?bno=${board.bno }&mode=notice'/>'">수정</button>
+		                    <button type="button"><a href="<c:url value='/board/remove?bno=${board.bno }&page=${page }&pageSize=${pageSize }&mode=notice'/>"
+		                    onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a></button>
+		                    <button type="button" onclick="location.href='<c:url value='/board/listNotice?${searchCondition.queryString }'/>'">목록</button>
+		                </div>
+					</c:when>
+					
+					<c:otherwise>
+						<div id="view-nav-button">
+							<button type="button" onclick="location.href='<c:url value='/board/listNotice?${searchCondition.queryString }'/>'">목록</button>
+						</div>
+					</c:otherwise>
+				</c:choose>
+            </div>
+
+            <!-- 글 제목 -->
+            <div id="post-title">
+                <h1>${board.title }</h1>
+            </div>
+
+            <!-- 글 정보 -->
+            <fmt:formatDate value="${board.regDate }" type="date" pattern="yyyy-MM-dd HH:mm" var="regDate" />
+            <div id="post-info">
+                <span>${board.writer }&nbsp;&nbsp;|&nbsp;&nbsp;${regDate } &nbsp;&nbsp;조회&nbsp;${board.views }</span>
+            </div>
+
+            <!-- 본문 -->
+            <div id="post-content">
+                <span>
+                	${board.content }
+                </span>
+            </div>
+
+            <!-- 좋아요 버튼, 숫자 -->
+            <div id="post-like">
+                <span id="likeIcon"></span>
+	            <span id="likeCnt"></span>
+            </div>
+
+        </div>
+    </div> 
+    <!-- 뷰와 새로운 게시판의 구분선 -->
+    <div id="post-spacing"></div>
+
+    <!-- view에 해당하는 게시판 include -->
+
+    <!-- footer include -->
+    <%@include file="footer.jsp" %>
 	
-	<script>
-		function deletePost(){
-			var confirmed = confirm("정말 삭제하시겠습니까?");
-			if(confirmed){
-				var form = document.writeFrm;
-				form.method = "post";
-				form.action = "<c:url value='/board/remove'/>?bno=${board.bno }&page=${page }&pageSize=${pageSize }&mode=notice";
-				form.submit();
-			}
-		}
-		
+	
+	<script>		
 		//좋아요 ajax 시작
 		const bno = ${board.bno };
 		let showLike = function(bno){
@@ -66,7 +85,7 @@
 				url : "/todolist/showLike?bno="+bno,
 				success : function(like) {
 					if (like.res == 1) {
-						$("#likeIcon").html("<button id='afterLike' type='button'>💚</button>");
+						$("#likeIcon").html("<button id='afterLike' type='button'>💗</button>");
 					} else {
 						$("#likeIcon").html("<button id='beforeLike' type='button'>🤍</button>");
 					}
@@ -101,6 +120,8 @@
 				}); //ajax
 			}); //beforeLike	
 		});	
+		
+		
 	</script>
 </body>
 

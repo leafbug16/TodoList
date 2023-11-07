@@ -3,36 +3,53 @@
 <%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html data-bs-theme="dark">
+<html lang="kr">
 
 <head>
     <meta charset="UTF-8">
-    <title>문의 상세보기</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My TodoList</title>
+    <link rel="stylesheet" href="<c:url value='/css/view.css'/>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 
 <body>
-	<form>
-	<h2>글 상세보기(Report)</h2>
-	<table class="table text-center border">
-	    <thead>
-	    	<tr>
-	            <th>${board.writer }</th>
-	            <fmt:formatDate value="${board.regDate }" type="date" pattern="yyyy-MM-dd HH:mm" var="regDate" />
-	            <th>${regDate }</th>
-	       	</tr>
-	    </thead>
-	    <tbody>
-	        <tr>
-	            <td colspan="2"><input type="text" name="title" value="${board.title }" readonly></td>
-	        </tr>
-	        <tr>
-	            <td colspan="2"><textarea class="form-control" name="title" style="height:350px" readonly>${board.content }</textarea></td>
-	        </tr>
-	    </tbody>
-	</table>
-	</form>
-		<a href="<c:url value='/board/listMyReport?${searchCondition.queryString }'/>">돌아가기</a>
+	<%@include file="navi.jsp" %>
+	<div id="view-wrap">
+        <div id="view-wrap-center">
+            <!-- 게시판 종류와 수정, 삭제, 목록 버튼 -->
+            <div id="view-nav">
+                <h3>문의/bug report</h3>
+                <div id="view-nav-button">
+                    <button type="button" onclick="location.href='<c:url value='/board/listMyReport?${searchCondition.queryString }'/>'">목록</button>
+                </div>
+            </div>
+
+            <!-- 글 제목 -->
+            <div id="post-title">
+                <h1>${board.title }</h1>
+            </div>
+
+            <!-- 글 정보 -->
+            <fmt:formatDate value="${board.regDate }" type="date" pattern="yyyy-MM-dd HH:mm" var="regDate" />
+            <div id="post-info">
+                <span>${board.writer }&nbsp;&nbsp;|&nbsp;&nbsp;${regDate } &nbsp;&nbsp;조회&nbsp;${board.views }</span>
+            </div>
+
+            <!-- 본문 -->
+            <div id="post-content">
+                <span>
+                	${board.content }
+                </span>
+            </div>
+
+        </div>
+    </div> 
+    <!-- footer include -->
+    <%@include file="footer.jsp" %>
 </body>
 
 </html>

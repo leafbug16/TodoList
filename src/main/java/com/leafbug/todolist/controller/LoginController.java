@@ -26,6 +26,7 @@ public class LoginController {
 		if(session.getAttribute("id")!=null && !session.getAttribute("id").equals("")) {
 			return "redirect:/todoList/main";
 		}
+		m.addAttribute("sessionId", session.getAttribute("id")+"");
 		return "index";
 	}
 	

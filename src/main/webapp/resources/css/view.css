@@ -17,7 +17,7 @@ body {
 #view-wrap-center {
     display: inline-block;
     width: 1280px;
-    min-height: 600px;
+    min-height: 300px;
 }
 
 /* 버튼s */
@@ -75,9 +75,10 @@ body {
 
 /* 좋아요 */
 #post-like {
-    margin-top: 20px;
-    margin-bottom: 20px;
+	margin-top: 30px;
     text-align: left;
+    position: relative;
+    left: -8px;
 }
 
 #afterLike, #beforeLike {

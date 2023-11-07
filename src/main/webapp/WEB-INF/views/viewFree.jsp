@@ -57,21 +57,23 @@
                 </span>
             </div>
 
-            <!-- 좋아요 버튼, 숫자 -->
-            <div id="post-like">
-                <span id="likeIcon"></span>
-	            <span id="likeCnt"></span>
-            </div>
-
+		    <!-- 좋아요 버튼, 숫자 -->
+		    <div id="post-like">
+		        <span id="likeIcon"></span>
+		     <span id="likeCnt"></span>
+		    </div>
         </div>
     </div>
     <!-- 댓글은 파일을 따로 만들어서 include -->
 	<%@include file="comment.jsp" %>
     
     <!-- 뷰와 새로운 게시판의 구분선 -->
-    <div id="post-spacing"></div>
+    <div id="post-spacing">
+    	<hr/ style="width: 1280px;">
+    </div>
 
     <!-- view에 해당하는 게시판 include -->
+    
 
     <!-- footer include -->
     <%@include file="footer.jsp" %>

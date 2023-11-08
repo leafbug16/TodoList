@@ -1,0 +1,80 @@
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 전체 구도 */
+#writing-wrap {
+    text-align: center;
+}
+#writing-wrap-center {
+    display: inline-block;
+    width: 1280px;
+    min-height: 800px;
+}
+
+/* 제목 */
+#writing-header {
+    text-align: left;
+}
+
+/* 게시글 타입 설정(select) */
+#writing-board-type {
+    display: flex;
+}
+
+#select-writing-board-type {
+    width: 250px;
+    height: 40px;
+    font-size: 17px;
+}
+
+/* 게시글 제목 */
+#writing-title {
+    display: flex;
+}
+
+#input-writing-title {
+    margin-top: 10px;
+    width: 1280px;
+    height: 40px;
+    font-size: 15px;
+}
+
+/* 게시글 내용 */
+#writing-content {
+    display: flex;
+}
+
+#textarea-writing-content {
+    margin-top: 10px;
+    width: 1280px;
+    height: 450px;
+    resize: none;
+    font-size: 15px;
+}
+
+/* 버튼 */
+#writing-button {
+    display: flex;
+    justify-content: end;
+    margin-top: 10px;
+}
+
+#writing-button button {
+    width: 80px;
+    height: 40px;
+    background: rgb(88, 62, 236);
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+}

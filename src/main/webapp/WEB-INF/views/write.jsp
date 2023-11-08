@@ -2,50 +2,67 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html data-bs-theme="dark">
+<html lang="kr">
 
 <head>
     <meta charset="UTF-8">
-    <title>write</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My TodoList</title>
+    <link rel="stylesheet" href="<c:url value='/css/write.css'/>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR&display=swap" rel="stylesheet">
 </head>
-
 <body>
-    <h2>글쓰기</h2>
-    <h2>${sessionId }</h2>
-    <!-- 글쓰기 폼 시작 -->
-    <form action="<c:url value='/board/write'/>" method="post" onsubmit="return formCheck(this)">
+	<%@include file="navi.jsp" %>
+    <div id="writing-wrap">
+        <form id="writing-wrap-center" action="<c:url value='/board/write'/>" method="post" onsubmit="return formCheck(this)">
+            <!-- 현재 페이지 설명 -->
+            <div id="writing-header">
+                <h3>글쓰기</h3>
+            </div>
+            <!-- 게시글 타입 설정(select) -->
+            <div id="writing-board-type">
+				<c:choose>
+				
+			    	<c:when test="${sessionId eq 'admin' }">
+			    		<select name="boardType" id="select-writing-board-type">
+			    			<option value="guide" ${mode eq 'guide' ? 'selected' : ''}>가이드</option>
+				            <option value="notice" ${mode eq 'notice' ? 'selected' : ''}>공지사항</option>
+				            <option value="free" ${mode eq 'free' ? 'selected' : ''}>자유게시판</option>
+			    		</select>
+			    	</c:when>
+			    	
+			    	<c:otherwise>
+			    		<select name="boardType" id="select-writing-board-type">
+			    			<option value="guide" disabled>가이드</option>
+			    			<option value="notice" disabled>공지사항</option>
+			    			<option value="free" selected>자유게시판</option>
+			    		</select>
+			    	</c:otherwise>
+			    	
+			    </c:choose>
+            </div>
+
+            <!-- 게시글 제목 -->
+            <div id="writing-title">
+                <input type="text" name="title" id="input-writing-title" placeholder="제목을 입력해주세요">
+            </div>
+
+            <!--게시글 내용-->
+            <div id="writing-content">
+                <textarea name="content" id="textarea-writing-content" placeholder="내용을 입력해주세요"></textarea>
+            </div>
+
+            <!--입력완료 버튼-->
+            <div id="writing-button">
+                <button id="button-writing-button">등록</button>
+            </div>
+        </form>
+    </div>
     
-	    <!-- boardType 선택 -->
-	    <c:choose>
-	    	<c:when test="${sessionId eq 'admin' }">
-	    		<select name="boardType">
-	    			<option value="guide" ${mode eq 'guide' ? 'selected' : ''}>가이드</option>
-		            <option value="notice" ${mode eq 'notice' ? 'selected' : ''}>공지사항</option>
-		            <option value="free" ${mode eq 'free' ? 'selected' : ''}>자유게시판</option>
-	    		</select>
-	    	</c:when>
-	    	<c:otherwise>
-	    		<select name="boardType">
-	    			<option value="guide" disabled>가이드</option>
-	    			<option value="notice" disabled>공지사항</option>
-	    			<option value="free" selected>자유게시판</option>
-	    		</select>
-	    	</c:otherwise>
-	    </c:choose>
-	    
-	    <!-- 내용 입력 부분 -->
-        <table>
-            <tbody>
-                <tr>
-                    <td><input type="text" placeholder="글 제목" name="title" id="title"></td>
-                </tr>
-                <tr>
-                    <td><textarea placeholder="글 내용" name="content" id="content" style="height:350px"></textarea></td>
-                </tr>
-            </tbody>
-        </table>
-        <button>작성 완료</button>
-    </form>
+    <%@include file="footer.jsp" %>
+    
     
 	<script>
 		let msg = ${msg };

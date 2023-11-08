@@ -240,6 +240,8 @@ public class BoardController {
 	@PostMapping("/modify")
 	public String modifyy(Board board, String mode, Model m, HttpSession session, RedirectAttributes redatt) {
 		String writer = session.getAttribute("id")+"";
+		System.out.println("writer : " +writer);
+		System.out.println(board);
 		m.addAttribute("sessionId", writer);
 		board.setWriter(writer);
 		int bno = board.getBno();

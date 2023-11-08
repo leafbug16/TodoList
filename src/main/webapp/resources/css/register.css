@@ -74,4 +74,5 @@ body {
     font-weight: bolder;
     color: white;
     cursor: pointer;
+    border: none;
 }

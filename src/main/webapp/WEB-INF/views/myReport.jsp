@@ -19,7 +19,7 @@
     <h2 id="title">마이페이지</h2>    
     <a href="<c:url value='/'/>">할일로 돌아가기</a><br>
     <h2>문의/bug report 내역</h2>
-    <a href="<c:url value='/board/listMyLike'/>">추천한 글</a>
+    <a href="<c:url value='/board/listMyLike'/>">좋아요한 글</a>
     <a href="<c:url value='/board/listMyPost'/>">작성한 글</a>
     <a href="<c:url value='/board/listMyComment'/>">작성한 댓글</a>
     <a href="<c:url value='/board/listMyReport'/>">문의/bug report 내역</a><br>

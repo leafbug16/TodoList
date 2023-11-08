@@ -34,6 +34,7 @@ public class UserController {
 			PageHandler pageHandler = new PageHandler(totalCnt, sc);
 			
 			List<User> list = userSerivce.getUserAll(sc);
+			System.out.println(list);
 			m.addAttribute("list", list);
 			m.addAttribute("ph", pageHandler);
 

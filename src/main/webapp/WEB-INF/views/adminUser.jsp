@@ -3,86 +3,111 @@
 <%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html>
+<html lang="kr">
 
 <head>
     <meta charset="UTF-8">
-    <title>관리자 페이지</title>
-    <style>
-    	#title {
-    		display: inline-block;
-    	}
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My TodoList</title>
+    <link rel="stylesheet" href="<c:url value='/css/adminUser.css'/>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR&display=swap" rel="stylesheet">
 </head>
-
 <body>
-    <h2 id="title">관리자 페이지</h2>
-    <a href="<c:url value='/'/>">할일로 돌아가기</a><br>
-    <h2>회원 관리</h2>
-    <a href="<c:url value='/board/listAll'/>">게시판 글 관리</a>
-    <a href="<c:url value='/user/listAll'/>">회원 관리</a>
-    <a href="<c:url value='/board/listReported'/>">문의/bug report 관리</a>
-    
-    <!-- 검색폼 -->
-    <form action="<c:url value='/user/listAll'/>" method="get">
-      <table>
-        <tr>
-          <td>
-            <select name="option" style="width: 130px; display: inline-block">
-              <option value="W" ${ph.sc.option=='W' ? "selected" : "" }>아이디</option>
-            </select>
-            <input type="text" name="keyword" id="search"
-              value='${ph.sc.keyword }' style="width: 300px; display: inline-block">
-            <button>검색</button>
-          </td>
-        </tr>
-      </table>
-    </form>
-    <table>
-        <thead>
-            <tr>
-                <th>아이디</th>
-                <th>비밀번호</th>
-                <th>이메일</th>
-                <th>가입일</th>
-                <th>내쫒기</th>
-            </tr>
-        </thead>
-        <tbody>
-        	<c:forEach var="user" items="${list }">
-            <tr>
-                <td>${user.id }</td>
-                <td>${user.pwd }</td>
-                <td>${user.email }</td>
-                <fmt:formatDate value="${user.regDate }" type="date" pattern="yyyy-MM-dd HH:mm" var="regDate" />
-                <td>${regDate }</td>
-                <td><a href="<c:url value='/user/remove?id=${user.id }&page=${page }&pageSize=${pageSize }'/>" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a></td>
-            </tr>
-            </c:forEach>
-        </tbody>
-    </table>
-    <!-- 페이지네이션 시작 --> 
-	<nav>
-	  <ul>
-	  	<c:if test="${ph.showPrev }">
-		    <li>
-		      <a href="<c:url value='/user/listAll?page=${ph.beginPage-1 }&pageSize=${ph.pageSize }'/>" aria-label="Previous">
-		        <span aria-hidden="true">&laquo;</span>
-		      </a>
-		    </li>
-	    </c:if>
-	    <c:forEach var="i" begin="${ph.beginPage }" end="${ph.endPage }">
-	    	<li ${ph.page==i? 'active':'' }"><a href="<c:url value='/user/listAll?page=${i }&pageSize=${ph.pageSize }' />">${i }</a></li>
-	    </c:forEach>
-	    <c:if test="${ph.showNext }">
-		    <li>
-		      <a href="<c:url value='/user/listAll?page=${ph.endPage+1 }&pageSize=${ph.pageSize }'/>" aria-label="Next">
-		        <span aria-hidden="true">&raquo;</span>
-		      </a>
-		    </li>
-	    </c:if>
-	  </ul>
-	</nav>
+	<%@include file="navi.jsp" %>
+    <div id="adminuser-wrap">
+        <div id="adminuser-wrap-center">
+
+            <div id="adminuser-info">
+                <h3>관리자페이지 - 회원 관리</h3>
+            </div>
+
+            <div id="adminuser-userinfo">
+                <h1>admin</h1>
+            </div>
+
+            <div id="adminuser-nav">
+                <ul>
+                    <li><a href="<c:url value='/board/listAll'/>">전체글</a></li>
+                    <li><a href="<c:url value='/user/listAll'/>">회원목록</a></li>
+                    <li><a href="<c:url value='/board/listReported'/>">문의/bug report</a></li>
+                </ul>
+                <hr>
+            </div>
+
+            <div id="adminuser-board">
+                <table id="adminuser-board-table">
+                    <thead>
+                        <tr id="adminuser-first-tr">
+                            <th>아이디</th>
+                            <th>비밀번호</th>
+                            <th>이메일</th>
+                            <th>가입일</th>
+                            <th>내쫓기</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <c:forEach var="user" items="${list }">
+			            <tr>
+			                <td>${user.id }</td>
+			                <td>${user.pwd }</td>
+			                <td>${user.email }</td>
+			                <fmt:formatDate value="${user.regDate }" type="date" pattern="yyyy-MM-dd HH:mm" var="regDate" />
+			                <td>${regDate }</td>
+			                <td><a href="<c:url value='/user/remove?id=${user.id }&page=${page }&pageSize=${pageSize }'/>" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a></td>
+			            </tr>
+			            </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 페이지네이션 -->
+            <div id="adminuser-pagenation">
+                <ul>
+				  	<c:if test="${ph.showPrev }">
+					    <li>
+					      <a href="<c:url value='/user/listAll?${ph.sc.getQueryString(ph.beginPage-1) }'/>" aria-label="Previous">
+					        <span aria-hidden="true">&laquo;</span>
+					      </a>
+					    </li>
+				    </c:if>
+				    <c:forEach var="i" begin="${ph.beginPage }" end="${ph.endPage }">
+				    	<li><a class="${ph.sc.page==i? 'active':'' }" href="<c:url value='/user/listAll?${ph.sc.getQueryString(i) }' />">${i }</a></li>
+				    </c:forEach>
+				    <c:if test="${ph.showNext }">
+					    <li>
+					      <a href="<c:url value='/user/listAll?${ph.sc.getQueryString(ph.endPage+1) }'/>" aria-label="Next">
+					        <span aria-hidden="true">&raquo;</span>
+					      </a>
+					    </li>
+				    </c:if>
+				</ul>
+            </div>
+            
+            <!-- 검색폼 -->
+            <div id="adminuser-search-area">
+                <form action="<c:url value='/user/listAll'/>" method="get">
+                    <div id="adminuser-search-area-flex">
+                        
+                        <!-- 셀렉트 -->
+                        <div id="adminuser-select">
+                            <select name="option">
+                                <option value="W" selected>아이디</option>
+                            </select>
+                        </div>
+
+                        <div id="adminuser-search">
+                            <input type="text" placeholder="검색어를 입력하세요" name="keyword" value="${ph.sc.keyword }">
+                            <button>검색</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
 
 	<script>
 		let msg="${msg}";

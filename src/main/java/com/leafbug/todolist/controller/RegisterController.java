@@ -1,13 +1,20 @@
 package com.leafbug.todolist.controller;
 
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.leafbug.todolist.model.User;
 import com.leafbug.todolist.service.UserService;
@@ -40,4 +47,57 @@ public class RegisterController {
 		}
 		return true;
 	}
+	
+	@ResponseBody
+	@RequestMapping("/duplicateIdCheck")
+	public ResponseEntity<Map<String, Object>> duplicateIdCheck(String id, HttpSession session) {
+		Map<String, Object> map = new HashMap<>();
+		int check = 0;
+		try {
+			User user = userService.findUser(id);
+			if(user == null) {
+				check = 0;
+			} else {
+				check = 1;
+			}
+			map.put("check", check);
+			return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Map<String, Object>>(map, HttpStatus.BAD_REQUEST);
+	}
+	
+	
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

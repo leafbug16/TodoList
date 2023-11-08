@@ -24,9 +24,10 @@
 
             <!-- 회원가입 폼 -->
             <div id="main">
-                <form action="<c:url value='/register/action'/>" method="post">
+                <form id="register-form" action="<c:url value='/register/action'/>" method="post">
                     <!-- 아이디 입력 -->
                     <div id="input-id">
+                    	<span id="duplicate-id-check"></span>
                         <label for="id">아이디</label>
                         <input type="text" name="id" id="id" placeholder="아이디 입력" required autofocus>
                     </div>
@@ -63,6 +64,77 @@
                 </form>
             </div>
         </div>
-    </div>  
+    </div>
+    
+    <script>
+    	const pwd = document.getQueryselector("#id");
+    	const pwdCheck = document.getQueryselector("#pwdCheck")	
+    	const registerForm = document.querySelector("#register-form");
+
+	    registerForm.addEventListener("submit", function(event) {
+	        if(pwd.value !== pwdCheck.value) {
+	            alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+	            event.preventDefault();
+	        }
+	    });
+	    
+	    $('#id').keyup(function(){
+	  		const id = $("input[name=id]").val();
+	  		if (id == "") {
+				$("#duplicate-id-check").html("");
+	  	    	return;
+	  		}
+	  		$.ajax({
+	  			type: "GET",
+	  			url: "/todolist/duplicateIdCheck?id="+id,
+	  			success: function(check) {
+  					if (check.res == 1) {
+  						$("#duplicate-id-check").html("중복된 아이디가 존재합니다");
+  					} else {
+  						$("#duplicate-id-check").html("사용 가능합니다");
+  					}
+	  			}, //success
+	  			error: function(request, status, error){ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error+"idCheck 중 에러") }
+	  		}); //ajax
+	  	}); //showLike
+    </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

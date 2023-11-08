@@ -57,11 +57,11 @@
             </div>
 
             <!-- 글쓰기 버튼 -->
-            <div id="write-button">
-            	<c:if test="${sessionId eq 'admin' }">
-                	<button type="button" onclick="location.href='<c:url value="/board/write?mode=guide"/>'">글쓰기</button>
-                </c:if>
-            </div>
+           	<c:if test="${sessionId eq 'admin' }">
+	            <div id="write-button">
+	                	<button type="button" onclick="location.href='<c:url value="/board/write?mode=guide"/>'">글쓰기</button>
+	            </div>
+            </c:if>
 
             <!-- 페이지네이션 -->
             <div id="pagenation">

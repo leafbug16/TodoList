@@ -13,6 +13,20 @@ body {
     border: 1px solid black;
 }
 
+/* 아이디 중복체크 */
+#duplicate-id-check-div {
+    margin: 0;
+    padding: 0;
+}
+
+#duplicate-id-check {
+    color: red;
+}
+
+.checked {
+    color: blue !important;
+}
+
 /* 아이디, 비밀번호, 비밀번호 확인, 이메일 */
 #input-id, #input-pwd, #input-pwd-check, #input-email {
     display: flex;

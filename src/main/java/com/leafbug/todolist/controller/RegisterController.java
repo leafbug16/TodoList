@@ -49,18 +49,20 @@ public class RegisterController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/duplicateIdCheck")
+	@GetMapping("/duplicateIdCheck")
 	public ResponseEntity<Map<String, Object>> duplicateIdCheck(String id, HttpSession session) {
+		System.out.println("컨트롤러로 오지도 못함?");
 		Map<String, Object> map = new HashMap<>();
-		int check = 0;
+		int res = 0;
 		try {
 			User user = userService.findUser(id);
 			if(user == null) {
-				check = 0;
+				res = 0;
 			} else {
-				check = 1;
+				res = 1;
 			}
-			map.put("check", check);
+			System.out.println(res);
+			map.put("res", res);
 			return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -73,20 +75,6 @@ public class RegisterController {
 	
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

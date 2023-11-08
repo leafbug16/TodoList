@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="kr">
 <head>
@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
     <div id="wrap">
@@ -25,6 +26,12 @@
             <!-- 회원가입 폼 -->
             <div id="main">
                 <form id="register-form" action="<c:url value='/register/action'/>" method="post">
+                
+                	<!--아이디 중복체크 메시지-->
+                    <div id="duplicate-id-check-div">
+                        <span class="" id="duplicate-id-check"></span>
+                    </div>
+                    
                     <!-- 아이디 입력 -->
                     <div id="input-id">
                     	<span id="duplicate-id-check"></span>
@@ -67,9 +74,10 @@
     </div>
     
     <script>
-    	const pwd = document.getQueryselector("#id");
-    	const pwdCheck = document.getQueryselector("#pwdCheck")	
+    	const pwd = document.querySelector("#pwd");
+    	const pwdCheck = document.querySelector("#pwdCheck")	
     	const registerForm = document.querySelector("#register-form");
+    	const id = document.querySelector("#id");
 
 	    registerForm.addEventListener("submit", function(event) {
 	        if(pwd.value !== pwdCheck.value) {
@@ -78,25 +86,30 @@
 	        }
 	    });
 	    
-	    $('#id').keyup(function(){
-	  		const id = $("input[name=id]").val();
-	  		if (id == "") {
-				$("#duplicate-id-check").html("");
-	  	    	return;
-	  		}
-	  		$.ajax({
-	  			type: "GET",
-	  			url: "/todolist/duplicateIdCheck?id="+id,
-	  			success: function(check) {
-  					if (check.res == 1) {
-  						$("#duplicate-id-check").html("중복된 아이디가 존재합니다");
-  					} else {
-  						$("#duplicate-id-check").html("사용 가능합니다");
-  					}
-	  			}, //success
-	  			error: function(request, status, error){ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error+"idCheck 중 에러") }
-	  		}); //ajax
-	  	}); //showLike
+	    $(document).ready(function(){
+		    $('#id').keyup(function(){
+		  		let id = $("input[name=id]").val();
+		  		console.log(id);
+		  		if (id == "") {
+					$("#duplicate-id-check").html("");
+					return;
+		  		}
+		  		$.ajax({
+		  			type: "GET",
+		  			url: "/todolist/register/duplicateIdCheck?id="+id,
+		  			success: function(check) {
+	  					if (check.res == 1) {
+	  						$("#duplicate-id-check").html("중복된 아이디가 존재합니다");
+	  						$("#duplicate-id-check").removeClass("checked");
+	  					} else {
+	  						$("#duplicate-id-check").html("사용 가능합니다");
+	  						$("#duplicate-id-check").addClass("checked");
+	  					}
+		  			}, //success
+		  			error: function(request, status, error){ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error+"idCheck 중 에러") }
+		  		}); //ajax
+		  	});
+	    });
     </script>
 </body>
 </html>

@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.leafbug.todolist.model.User;
 import com.leafbug.todolist.service.UserService;
@@ -31,13 +32,14 @@ public class LoginController {
 	}
 	
 	@PostMapping("/action")
-	public String loginAction(String toURL, String id, String pwd, boolean keepLogin, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public String loginAction(String toURL, String id, String pwd, boolean rememberId, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redatt) throws Exception {
 		User user = userService.findUser(id);
-		if (!user.getId().equals(id) && !user.getPwd().equals(pwd)) {
+		if (user == null || !user.getId().equals(id) || !user.getPwd().equals(pwd)) {
+			redatt.addFlashAttribute("msg", "login-failed");
 			return "redirect:/login/form";
 		}
 		
-		if (keepLogin) {
+		if (rememberId) {
 			Cookie cookie = new Cookie("id", id);
 			cookie.setMaxAge(60*60*24*365);
 			/* cookie.setPath("/firstSpring"); */

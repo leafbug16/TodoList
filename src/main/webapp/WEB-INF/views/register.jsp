@@ -26,8 +26,8 @@
             <!-- 회원가입 폼 -->
             <div id="main">
                 <form id="register-form" action="<c:url value='/register/action'/>" method="post">
-                
-                	<!--아이디 중복체크 메시지-->
+                	
+                	<!--아이디 중복체크 + 유효성검사 메시지-->
                     <div id="duplicate-id-check-div">
                         <span class="" id="duplicate-id-check"></span>
                     </div>
@@ -38,13 +38,23 @@
                         <label for="id">아이디</label>
                         <input type="text" name="id" id="id" placeholder="아이디 입력" required autofocus>
                     </div>
+                    
+                    <!-- 비밀번호 유효성 검사 메시지 -->
+                    <div id="pwd-div">
+                        <span class="" id="pwd-msg"></span>
+                    </div>
 
                     <!-- 비밀번호 입력 -->
                     <div id="input-pwd">
                         <label for="pwd">비밀번호</label>
                         <input type="password" name="pwd" id="pwd" placeholder="비밀번호 입력" required>
                     </div>
-
+					
+					<!-- 비밀번호 확인 메시지 -->
+                    <div id="pwd-check-div">
+                        <span class="" id="pwd-check-msg"></span>
+                    </div>
+                    
                     <!-- 비밀번호 확인 -->
                     <div id="input-pwd-check">
                         <label for="pwd">비밀번호 확인</label>
@@ -84,14 +94,25 @@
 	            alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
 	            event.preventDefault();
 	        }
+	        if(!$("#duplicate-id-check").hasClass("checked")) {
+	          alert("아이디를 제대로 입력해주세요.");
+	          event.preventDefault();
+	      	}
+	        if(!$("#pwd-msg").hasClass("checked")) {
+	          alert("비밀번호를 제대로 입력해주세요");
+	          event.preventDefault();
+	      	}
 	    });
+	    
+	    
 	    
 	    $(document).ready(function(){
 		    $('#id').keyup(function(){
 		  		let id = $("input[name=id]").val();
 		  		console.log(id);
-		  		if (id == "") {
-					$("#duplicate-id-check").html("");
+		  		if (id == "" || id.length < 2 || id.length > 15) {
+					$("#duplicate-id-check").html("아이디는 2~15글자로 작성해주세요");
+					$("#duplicate-id-check").removeClass("checked");
 					return;
 		  		}
 		  		$.ajax({
@@ -109,6 +130,28 @@
 		  			error: function(request, status, error){ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error+"idCheck 중 에러") }
 		  		}); //ajax
 		  	});
+		    
+		    pwdCheck.addEventListener('keyup', function() {
+			    if(pwd.value !== pwdCheck.value) {
+			    	$("#pwd-check-msg").html("비밀번호가 일치하지 않습니다.");
+			    	$("#pwd-check-msg").removeClass("checked");
+			    } else {
+			    	$("#pwd-check-msg").html("비밀번호 일치");
+			    	$("#pwd-check-msg").addClass("checked");
+			    }
+		  	});
+		    
+		    pwd.addEventListener('keyup', function() {
+			    if(pwd.value == "" || pwd.value.length < 2 || pwd.value.length > 20) {
+			    	$("#pwd-msg").html("비밀번호는 2~20글자로 작성해주세요");
+			    	$("#pwd-msg").removeClass("checked");
+			    } else {
+			    	$("#pwd-msg").html("사용 가능합니다");
+			    	$("#pwd-msg").addClass("checked");
+			    }
+		  	});
+		        
+		    
 	    });
     </script>
 </body>

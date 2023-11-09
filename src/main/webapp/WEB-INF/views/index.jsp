@@ -11,6 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
 	<div id="wrap">
@@ -25,21 +26,26 @@
             <div id="main">
                 <form action="<c:url value='/login/action'/>" method="post">
                 
+                	<!-- 로그인 실패 메시지 -->
+                    <div id="login-failed-msg-div">
+                        <span class="" id="login-failed-msg"></span>
+                    </div>
+                
                     <!-- 아이디 입력 -->
                     <div id="input-id">
                         <label for="id">아이디</label>
-                        <input type="text" name="id" id="id" placeholder="아이디 입력" required autofocus>
+                        <input type="text" name="id" id="id" placeholder="아이디 입력" required ${empty cookie.id.value? "autofocus" : "" } value="${cookie.id.value }">
                     </div>
 
                     <!-- 비밀번호 입력 -->
                     <div id="input-pwd">
                         <label for="pwd">비밀번호</label>
-                        <input type="password" name="pwd" id="pwd" placeholder="비밀번호 입력" required>
+                        <input type="password" name="pwd" id="pwd" placeholder="비밀번호 입력" required ${empty cookie.id.value? "" : "autofocus" }>
                     </div>
 
                     <!-- 아이디 기억 -->
                     <div id="input-remember-id">
-                        <input type="checkbox" name="rememberId" id="remember-id">
+                        <input type="checkbox" name="rememberId" id="remember-id" ${empty cookie.id.value? "" : "checked" }>
                         <label for="remember-id">아이디 기억</label>
                     </div>
 
@@ -58,5 +64,10 @@
             </div>
         </div>
     </div>
+    
+    <script>
+    	let msg="${msg}";
+    	if(msg=="login-failed") $("#login-failed-msg").html("없는 아이디거나 비밀번호를 틀렸습니다");
+    </script>
 </body>
 </html>

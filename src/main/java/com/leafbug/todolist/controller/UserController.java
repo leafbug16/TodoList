@@ -61,9 +61,7 @@ public class UserController {
 			e.printStackTrace();
 			redatt.addFlashAttribute("msg", "error");
 		}
-		System.out.println(mode);
 		if("selfRemove".equals(mode)) {
-			System.out.println("¿©±â½ÇÇàµÊ userController");
 			return "redirect:/login/logout";
 		} else {
 			return "redirect:/user/listAll";

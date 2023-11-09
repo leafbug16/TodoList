@@ -22,7 +22,7 @@
         <div id="comment-wrap-center">
 
             <div id="comment-header">
-                <h3>댓글</h3>
+                <h3 id=comment-header-text>댓글</h3>
                 <hr/>
             </div>
 

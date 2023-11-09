@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
 	<%@include file="navi.jsp" %>
@@ -51,7 +52,7 @@
 
             <!--게시글 내용-->
             <div id="writing-content">
-                <textarea name="content" id="textarea-writing-content" placeholder="내용을 입력해주세요"></textarea>
+            	<textarea name="content" id="textarea-writing-content" placeholder="내용을 입력해주세요"></textarea>
             </div>
 
             <!--입력완료 버튼-->
@@ -65,7 +66,7 @@
     
     
 	<script>
-		let msg = ${msg };
+		let msg = "${msg }";
 		if (msg=="write_error") alert("게시글 작성에 실패했습니다");
 		
 		function formCheck(frm) {

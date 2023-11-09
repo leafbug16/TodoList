@@ -118,6 +118,12 @@ tr:hover {
   background: lightgray;
 }
 
+td {
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 td a {
 	text-decoration: none;
 	color: black;
@@ -129,11 +135,19 @@ td a:hover {
 }
 
 th:nth-child(1) {
-    width: 10%;
+    width: 100px;
 }
 
 th:nth-child(2) {
-    width: 80%;
+    width: 1002px;
+}
+
+td:nth-child(1) {
+    width: 100px;
+}
+
+td:nth-child(2) {
+    width: 1002px;
 }
 
 td:nth-child(2) {

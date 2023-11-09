@@ -10,5 +10,7 @@
 		<typeAlias alias="SearchCondition" type="com.leafbug.todolist.model.SearchCondition"/>
 		<typeAlias alias="Comment" type="com.leafbug.todolist.model.Comment"/>
 		<typeAlias alias="Like" type="com.leafbug.todolist.model.Like"/>
+		<typeAlias alias="Todolist" type="com.leafbug.todolist.model.Todolist"/>
+		<typeAlias alias="Todo" type="com.leafbug.todolist.model.Todo"/>
 	</typeAliases>
 </configuration>

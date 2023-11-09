@@ -56,9 +56,15 @@ body {
 #textarea-writing-content {
     margin-top: 10px;
     width: 1280px;
-    height: 450px;
+    min-height: 450px;
     resize: none;
     font-size: 15px;
+}
+
+
+.ck.ck-editor {
+	width: 1280px;
+	min-height: 450px;
 }
 
 /* ¹öÆ° */

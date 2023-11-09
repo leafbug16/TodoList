@@ -114,6 +114,12 @@ tr {
     height: 35px;
 }
 
+td {
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 tr:hover {
   background: lightgray;
 }
@@ -138,10 +144,13 @@ th:nth-child(2) {
 
 td:nth-child(1) {
     text-align: left;
+    max-width: 500px;;
+    padding-left: 15px;
 }
 
 td:nth-child(2) {
     text-align: left;
+    max-width: 500px;
 }
 
 /* 페이지네이션 */

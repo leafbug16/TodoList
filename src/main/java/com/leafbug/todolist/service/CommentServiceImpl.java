@@ -53,9 +53,9 @@ public class CommentServiceImpl implements CommentService {
 	
 	//¥Ò±€ ªË¡¶
 	@Override
-	public int remove(Integer cno, Integer bno, String commenter) throws Exception {
+	public int remove(Integer cno, Integer bno) throws Exception {
 		int rowCnt = boardDAO.updateCommentCnt(bno, -1);
-		rowCnt = commentDAO.delete(cno, commenter);
+		rowCnt = commentDAO.delete(cno);
 		return rowCnt;
 	}
 	

@@ -22,6 +22,6 @@ public interface CommentService {
 	int modify(Comment comment) throws Exception;
 
 	//¥Ò±€ ªË¡¶
-	int remove(Integer cno, Integer bno, String commenter) throws Exception;
+	int remove(Integer cno, Integer bno) throws Exception;
 
 }

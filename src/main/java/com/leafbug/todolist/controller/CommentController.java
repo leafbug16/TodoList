@@ -42,9 +42,8 @@ public class CommentController {
 	@DeleteMapping("/comments/{cno}")
 	@ResponseBody
 	public ResponseEntity<String> remove(@PathVariable Integer cno, Integer bno, HttpSession session) {
-		String commenter = session.getAttribute("id")+"";
 		try {
-			int rowCnt = cs.remove(cno, bno, commenter);
+			int rowCnt = cs.remove(cno, bno);
 			if(rowCnt!=1) throw new Exception("delete failed");
 			return new ResponseEntity<>("DEL_OK", HttpStatus.OK);
 		} catch (Exception e) {

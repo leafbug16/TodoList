@@ -18,6 +18,6 @@ public interface CommentDAO {
 
 	int deleteAll(Integer bno) throws Exception;
 
-	int delete(Integer cno, String commenter) throws Exception;
+	int delete(Integer cno) throws Exception;
 
 }

@@ -37,7 +37,7 @@
 	
 	<!-- 댓글 삭제 -->
 	<delete id="delete" parameterType="map">
-		DELETE FROM comment WHERE cno = #{cno} AND commenter = #{commenter}
+		DELETE FROM comment WHERE cno = #{cno}
 	</delete>
 	
 </mapper>

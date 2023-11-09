@@ -60,7 +60,7 @@
 				                <fmt:formatDate value="${board.regDate }" type="date" pattern="yyyy-MM-dd HH:mm" var="reg_date" />
 				                <td>${reg_date }</td>
 				                <td>${board.views }</td>
-				                <td>${likes }</td>
+				                <td>${board.likes }</td>
 				            </tr>
 			            </c:forEach>
                     </tbody>

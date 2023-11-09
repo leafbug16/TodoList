@@ -77,6 +77,11 @@
                     <div id="input-button">
                         <button>회원가입</button>
                     </div>
+                    
+                    <!-- 로그인으로 돌아가기 -->
+                    <div id="login-link-div">
+                        <a href="<c:url value='/'/>">로그인으로 돌아가기</a>
+                    </div>
 
                 </form>
             </div>

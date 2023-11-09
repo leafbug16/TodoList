@@ -59,7 +59,7 @@
 				tmp += "<div id='comment-div' data-cno="+comment.cno + " data-bno="+comment.bno + ">";
 				tmp +='<span id="commentlist-commenter"><b>'+comment.commenter+'</b></span><br>';
 				tmp +='<span id="commentlist-comment"> '+comment.comment.replace(/\n/g, '<br>')+'</span>';
-				if (comment.commenter == "${sessionScope.id }") {
+				if (comment.commenter == "${sessionScope.id }" || "admin == ${sessionScope.id}") {
 					tmp += "<button type='button' class='modBtnb'><i class='fa-solid fa-pen'></i></button>";
 					tmp += "<button type='button' class='delBtn'><i class='fa-solid fa-x'></i></button>";
 				}

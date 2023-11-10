@@ -7,7 +7,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My TodoList</title>
+    <title>마이투두리스트 : 회원가입</title>
+    <link rel="shortcut icon" href="<c:url value='/img/favicon.ico'/>">
     <link rel="stylesheet" href="<c:url value='/css/register.css'/>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

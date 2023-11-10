@@ -162,6 +162,7 @@ public class TodolistController {
 	@PostMapping("/todos")
 	@ResponseBody
 	public ResponseEntity<String> writeTodos(@RequestBody Todo todo, HttpSession session) {
+		todo.setUserId(session.getAttribute("id")+"");
 		try {
 			int res = ts.writeTodo(todo);
 			if(res != 1) throw new Exception("Write Error");

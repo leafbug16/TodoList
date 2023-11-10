@@ -56,12 +56,12 @@
     	const showList = function(lno) {
     		$("textarea[name=content]").val("");
     		$.ajax({
-    			type: "GET",
-    			url: "/todolist/todolist/todos?lno="+lno,
-		        success: function(res) {
+    			type : "GET",
+    			url : "/todolist/todolist/todos?lno="+lno,
+		        success : function(res) {
 		        	$("#todoList").html(toHtml(res));
 		        },
-		        error: function(request, status, error){ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error+"조회중에러") }
+		        error : function(request, status, error){ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error+"조회중에러") }
     		});//ajax
     	}//showList
     	
@@ -81,6 +81,27 @@
     	
     	$(document).ready(function(){
     		showList(lno);
+    		
+    		//할일 추가
+    		$("#sendBtn").click(function(){
+    			const content = $("textarea[name=content]").val();
+    			if(content.trim() == "") {
+    				alert("내용을 입력하세요");
+    				return;
+    			}//if
+    			$.ajax({
+    				type : "POST",
+    				url : "/todolist/todolist/todos",
+    				headers : {"content-type" : "application/json"},
+  					data : JSON.stringify({ lno: lno, content: content}),
+  					success : function(res) {
+  						showList(lno);
+  					},
+  					error : function(request, status, error){ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error+"등록 중 에러") }
+    			});//ajax
+    		})//sendBtn click
+    		
+    		
     		
     	});//ready
     

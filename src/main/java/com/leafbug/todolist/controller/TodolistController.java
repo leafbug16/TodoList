@@ -176,7 +176,10 @@ public class TodolistController {
 	//할일 수정
 	@PatchMapping("/todos")
 	@ResponseBody
-	public ResponseEntity<String> modifyTodos(@RequestBody Todo todo, HttpSession session) {
+	public ResponseEntity<String> modifyTodos(@RequestParam Integer tno, @RequestParam String content, HttpSession session) {
+		Todo todo = new Todo();
+		todo.setTno(tno);
+		todo.setContent(content);
 		try {
 			int res = ts.modifyTodo(todo);
 			if(res != 1) throw new Exception("Modify Error");
@@ -190,7 +193,9 @@ public class TodolistController {
 	//할일 삭제
 	@DeleteMapping("/todos")
 	@ResponseBody
-	public ResponseEntity<String> removeTodos(@RequestBody Todo todo, HttpSession session) {
+	public ResponseEntity<String> removeTodos(@RequestParam Integer tno, HttpSession session) {
+		Todo todo = new Todo();
+		todo.setTno(tno);
 		try {
 			int res = ts.removeTodo(todo);
 			if(res != 1) throw new Exception("Delete Error");

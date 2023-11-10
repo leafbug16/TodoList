@@ -69,11 +69,11 @@
     		let tmp = "<ul id='todo-ul'>";
     		todoLists.forEach(function(todo){
     			tmp += "<li id='todo-li'>";
-    			tmp += "<div id='todo-div' data-tno="+todo.tno+" data-lno="+todo.lno+">";
-    			tmp += "<input type='checkbox' id='todo-checkbox'>";
-    			tmp += "<label for='todo-checkbox'>"+todo.content+"</label>";
-    			tmp += "<button type='button' class='modBtnb'>수정</button>";
-    			tmp += "<button type='button' class='delBtn'>삭제</button>";
+	    			tmp += "<div id='todo-div' data-tno="+todo.tno+" data-lno="+todo.lno+">";
+	    			tmp += "<input type='checkbox' id='todo-checkbox'>";
+	    			tmp += "<label for='todo-checkbox'>"+todo.content+"</label>";
+	    			tmp += "<button type='button' class='modBtnb'>수정</button>";
+	    			tmp += "<button type='button' class='delBtn'>삭제</button>";
     			tmp += "</div></li>"
     		})//forEach
     		return tmp + "</ul>";
@@ -101,7 +101,32 @@
     			});//ajax
     		})//sendBtn click
     		
+    		//할일 삭제
+    		$("#todoList").on("click", ".delBtn", (function(){
+    			const tno = $(this).parent().attr("data-tno");
+    			const lno = $(this).parent().attr("data-lno");
+    			$.ajax({
+    				type : "DELETE",
+    				url : "/todolist/todolist/todos?tno="+tno,
+    				success : function(res) {
+    					showList(lno);
+    				},
+    				error : function(request, status, error){ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error+"삭제 중 에러") }
+    			});//ajax
+    		}));//delBtn click
     		
+    		//수정1
+    		$("#todoList").on("click", ".modBtnb", function(){
+    			const tno = $(this).parent().attr("data-tno");
+    			const lno = $(this).parent().attr("data-lno");
+    			const origin = $("label", $(this).parent()).html().replace('<br/>', '\r\n').trim();
+    			console.log(origin);
+    			
+    			$(this).parent().replaceWith("<div id='todo-modify-div'><textarea name='recontent' id='recontent'>"+origin+"</textarea><button type='button' id='modBtn'>수정완료</button></div>");
+    			$("#modBtn").attr("data-tno", tno);
+    		});//modeBtnb click
+    		
+    		//수정2
     		
     	});//ready
     

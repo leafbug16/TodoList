@@ -77,6 +77,21 @@ public class TodolistServiceImpl implements TodolistService {
 		return tDAO.todoDelete(todo);
 	}
 	
+	//할일 끝 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	
+	//메모 가져오기
+	@Override
+	public Todolist getMemo(Map map) throws Exception {
+		return tDAO.memoSelect(map);
+	}
+	
+	//메모 입력하기
+	@Override
+	public int modifyMemo(Todolist todolist) throws Exception {
+		return tDAO.memoUpdate(todolist);
+	}
+	
+	
 }
 
 

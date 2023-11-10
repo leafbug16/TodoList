@@ -77,6 +77,20 @@ public class TodolistDAOImpl implements TodolistDAO {
 	public int todoDelete(Todo todo) throws Exception {
 		return session.delete(namespace+"todoDelete", todo);
 	}
+	
+	//할일 끝 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	
+	//메모 가져오기
+	@Override
+	public Todolist memoSelect(Map map) throws Exception {
+		return session.selectOne(namespace+"memoSelect", map);
+	}
+	
+	//메모 입력하기
+	@Override
+	public int memoUpdate(Todolist todolist) throws Exception {
+		return session.update(namespace+"memoInsert", todolist);
+	}
 
 }
 

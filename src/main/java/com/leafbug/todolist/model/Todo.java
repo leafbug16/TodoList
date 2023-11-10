@@ -11,6 +11,7 @@ public class Todo {
 	private String userId;
 	private Date startDate;
 	private Date endDate;
+	private String memo;
 	
 	public Todo() {
 		super();
@@ -64,11 +65,19 @@ public class Todo {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
+	public String getMemo() {
+		return memo;
+	}
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
+
 	@Override
 	public String toString() {
 		return "Todo [tno=" + tno + ", lno=" + lno + ", todoType=" + todoType + ", content=" + content + ", complete="
-				+ complete + ", userId=" + userId + ", startDate=" + startDate + ", endDate=" + endDate + "]";
+				+ complete + ", userId=" + userId + ", startDate=" + startDate + ", endDate=" + endDate + ", memo=" + memo
+				+ "]";
 	}
-	
+
 	
 }

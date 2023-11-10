@@ -176,10 +176,7 @@ public class TodolistController {
 	//할일 수정
 	@PatchMapping("/todos")
 	@ResponseBody
-	public ResponseEntity<String> modifyTodos(@RequestParam Integer tno, @RequestParam String content, HttpSession session) {
-		Todo todo = new Todo();
-		todo.setTno(tno);
-		todo.setContent(content);
+	public ResponseEntity<String> modifyTodos(@RequestBody Todo todo, HttpSession session) {
 		try {
 			int res = ts.modifyTodo(todo);
 			if(res != 1) throw new Exception("Modify Error");
@@ -205,6 +202,40 @@ public class TodolistController {
 			return new ResponseEntity<>("DELETE_ERR", HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	//할일 끝 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	
+	//메모 가져오기
+	@GetMapping("/todosMemo")
+	@ResponseBody
+	public ResponseEntity<Todolist> todosMemo(@RequestParam Integer lno) {
+		Todolist todolist = new Todolist();
+		Map map = new HashMap();
+		map.put("lno", lno);
+		try {
+			todolist = ts.getMemo(map);
+			return new ResponseEntity<Todolist>(todolist, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<Todolist>(todolist, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	//메모 입력하기
+	@PostMapping("/todosMemo")
+	@ResponseBody
+	public ResponseEntity<String> writeTodosMemo(@RequestBody Todolist todolist, HttpSession session) {
+		try {
+			int res = ts.modifyMemo(todolist);
+			if(res != 1) throw new Exception("Memo Write Error");
+			return new ResponseEntity<>("MEMO_WRITE_OK", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("MEMO_WRITE_ERR", HttpStatus.BAD_REQUEST);
+		}
+		
+	}
+	
 	
 }
 

@@ -51,6 +51,11 @@
     	<button type="button" id="sendBtn">등록</button>
     </div>
     
+    <!-- 메모장 -->
+    <div id="todo-memo-div">
+    	<textarea name="memo" id="memo"></textarea>
+    </div>
+    
     <script>
     	const lno = ${tl.lno};
     	const showList = function(lno) {
@@ -65,6 +70,19 @@
     		});//ajax
     	}//showList
     	
+    	const showMemo = function(lno) {
+    		$("#memo").val("");
+    		$.ajax({
+    			type : "GET",
+    			url : "/todolist/todolist/todosMemo?lno="+lno,
+    			success : function(res) {
+    				const memo = res.memo; // Todolist 객체의 memo 필드
+            		$("#memo").val(memo);
+    			},
+    			error : function(request, status, error){ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error+"메모 조회 중 에러") }
+    		});//ajax
+    	}
+    		
     	const toHtml = function(todoLists) {
     		let tmp = "<ul id='todo-ul'>";
     		todoLists.forEach(function(todo){
@@ -81,6 +99,7 @@
     	
     	$(document).ready(function(){
     		showList(lno);
+    		showMemo(lno);
     		
     		//할일 추가
     		$("#sendBtn").click(function(){
@@ -127,6 +146,49 @@
     		});//modeBtnb click
     		
     		//수정2
+    		$("#todoList").on("click", "#modBtn", function(){
+    			const content = $("textarea[name=recontent]").val();
+    			const tno = $("#modBtn").attr("data-tno");
+    			if(content.trim() == "") {
+    				alert("내용을 입력하세요");
+    				return;
+    			}
+    			$.ajax({
+    				type : "PATCH",
+    				url : "/todolist/todolist/todos",
+    				headers : {"content-type" : "application/json"},
+  					data : JSON.stringify({ tno: tno, content: content}),
+  					success : function(res){
+  						showList(lno);
+  					},
+  					error: function(request, status, error){ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error+"수정 완료 중 에러") }
+    			});//ajax
+    		});//modBtn click
+    		
+    		//메모 입력 & 저장
+    		function saveMemo() {
+    			const memo = $("#memo").val();
+    			$.ajax({
+    				type : "POST",
+    				url : "/todolist/todolist/todosMemo",
+    				headers : {"content-type" : "application/json"},
+  					data : JSON.stringify({ lno: lno, memo: memo}),
+  					success : function(res) {
+  						showMemo(lno);
+  					},
+    				error : function(request, status, error){ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error+"메모 작성 중 에러") }
+    			});//ajax
+    		}
+    		
+    		//메모 저장 딜레이 타이머
+    		let memoTimer = null;
+    		$("#memo").keyup(function() {
+    		    clearTimeout(memoTimer); // 이전 타이머 취소
+    		    
+    		    memoTimer = setTimeout(function() {
+    		        saveMemo();
+    		    }, 2000); // 2000ms(2초) 딜레이 후에 저장 함수 호출
+    		});
     		
     	});//ready
     

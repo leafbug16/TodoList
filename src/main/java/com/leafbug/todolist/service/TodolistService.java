@@ -40,6 +40,14 @@ public interface TodolistService {
 	//할일 삭제하기
 	int removeTodo(Todo todo) throws Exception;
 	
+	//할일 끝 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	
+	//메모 가져오기
+	Todolist getMemo(Map map) throws Exception;
+	
+	//메모 입력하기
+	int modifyMemo(Todolist todolist) throws Exception;
+	
 }
 
 

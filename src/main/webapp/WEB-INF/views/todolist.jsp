@@ -20,6 +20,8 @@
     </c:if>
     <a href="<c:url value='/board/writeReport'/>">문의 / bug report</a>
     
+    <a href="<c:url value='/todolist/write?id=${sessionId }'/>">추가</a>
+    
     <!-- 목록 가져오기 테스트 -->
     <ul>
     	<c:forEach var="list" items="${lists }">

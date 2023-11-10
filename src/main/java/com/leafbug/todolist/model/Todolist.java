@@ -4,6 +4,7 @@ public class Todolist {
 	private Integer lno;
 	private String title;
 	private String userId;
+	private String memo;
 	
 	public Todolist() {
 		super();
@@ -32,10 +33,17 @@ public class Todolist {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	
+	public String getMemo() {
+		return memo;
+	}
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
 	@Override
 	public String toString() {
-		return "Todolist [lno=" + lno + ", title=" + title + ", userId=" + userId + "]";
+		return "Todolist [lno=" + lno + ", title=" + title + ", userId=" + userId + ", memo=" + memo + "]";
 	}
+	
+	
 	
 }

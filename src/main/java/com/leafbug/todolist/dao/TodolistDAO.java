@@ -39,6 +39,33 @@ public interface TodolistDAO {
 	
 	//할일 삭제하기
 	int todoDelete(Todo todo) throws Exception;
-
+	
+	//할일 끝 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	
+	//메모 가져오기
+	Todolist memoSelect(Map map) throws Exception;
+	
+	//메모 입력하기
+	int memoUpdate(Todolist todolist) throws Exception;
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

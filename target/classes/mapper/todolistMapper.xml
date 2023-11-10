@@ -69,6 +69,20 @@
 	</delete>
 	
 	
+	<!-- 할일 끝 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+	
+	<!-- 메모 가져오기 -->
+	<select id="memoSelect" parameterType="map" resultType="Todolist">
+		SELECT memo FROM todolist
+		WHERE lno = #{lno}
+	</select>
+	
+	<!-- 메모 입력하기 -->
+	<update id="memoInsert" parameterType="Todolist">
+		UPDATE todolist SET memo = #{memo} WHERE lno = #{lno}
+	</update>
+	
+	
 	
 </mapper>
 

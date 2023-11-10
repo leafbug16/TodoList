@@ -9,22 +9,22 @@ import com.leafbug.todolist.model.Todolist;
 public interface TodolistService {
 
 	//유저 아이디에 맞는 할일목록 리스트 가져오기
-	List<Todolist> getLists(Map map) throws Exception;
+	List<Todolist> getLists(Todolist todolist) throws Exception;
 
 	//할일목록 하나 가져오기
 	Todolist getlist(Integer lno) throws Exception;
 
 	//할일목록 늘리기
-	int write(Map map) throws Exception;
+	int write(Todolist todolist) throws Exception;
 
 	//할일목록 제목 수정
-	int modify(Map map) throws Exception;
+	int modify(Todolist todolist) throws Exception;
 
 	//할일목록 하나 삭제
-	int remove(Map map) throws Exception;
+	int remove(Todolist todolist) throws Exception;
 
 	//할일목록 전체 삭제
-	int removeAll(Map map) throws Exception;
+	int removeAll(Todolist todolist) throws Exception;
 	
 	//목록 끝 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	

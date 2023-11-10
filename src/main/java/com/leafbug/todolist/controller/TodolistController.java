@@ -30,37 +30,43 @@ public class TodolistController {
 	@Autowired
 	TodolistService ts;
 	
-	//메인화면 띄우기, 목록들 가져오기
+	//todolist.jsp 띄우는 용도
 	@GetMapping("/main")
 	public String main(HttpSession session, Model m) {
 		m.addAttribute("sessionId", session.getAttribute("id")+"");
-		String id = session.getAttribute("id")+"";
+		return "todolist";
+	}
+	
+	//목록 가져오기(ajax)
+	@GetMapping("/lists")
+	@ResponseBody
+	public ResponseEntity<List<Todolist>> lists(HttpSession session, Model m) {
+		List<Todolist> lists = null;
+		Todolist todolist = new Todolist();
+		todolist.setUserId(session.getAttribute("id")+"");
+		m.addAttribute("sessionId", session.getAttribute("id")+"");
 		try {
-			Map map = new HashMap();
-			map.put("id", id);
-			List<Todolist> lists = ts.getLists(map);
-			m.addAttribute("lists", lists);
+			lists = ts.getLists(todolist);	
+			return new ResponseEntity<List<Todolist>>(lists, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
+			return new ResponseEntity<List<Todolist>>(lists, HttpStatus.BAD_REQUEST);
 		}
-		return "todolist";
 	}
 	
 	//목록 하나 클릭(read)
 	@GetMapping("/read")
-	public String read(Integer lno, HttpSession session, Model m) {
+	public String read(Integer lno, HttpSession session, Model m) {	
+		List<Todolist> lists = null;
+		Todolist todolist = new Todolist();
+		todolist.setUserId(session.getAttribute("id")+"");
 		m.addAttribute("sessionId", session.getAttribute("id")+"");
-		String id = session.getAttribute("id")+"";
-		Todolist tl;
 		try {
-			
-			Map map = new HashMap();
-			map.put("id", id);
-			List<Todolist> lists = ts.getLists(map);
+			lists = ts.getLists(todolist);
 			m.addAttribute("lists", lists);
 			
-			tl = ts.getlist(lno);
-			m.addAttribute("tl", tl);
+			todolist = ts.getlist(lno);
+			m.addAttribute("tl", todolist);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "redirect:/todolist/main";
@@ -68,76 +74,88 @@ public class TodolistController {
 		return "todolistView";
 	}
 	
-	//할일목록 추가 후 리스트 다시 가져오기
-	@GetMapping("/write")
-	public String write(HttpSession session, Model m) {
-		m.addAttribute("sessionId", session.getAttribute("id")+"");
-		String id = session.getAttribute("id")+"";
+	//할일목록 추가 ajax
+	@PostMapping("/lists")
+	@ResponseBody
+	public ResponseEntity<String> write(HttpSession session) {
+		Todolist todolist = new Todolist();
+		todolist.setUserId(session.getAttribute("id")+"");
 		try {
-			Map map = new HashMap();
-			map.put("id", id);
-			int res = ts.write(map);
-			List<Todolist> lists = ts.getLists(map);
-			m.addAttribute("lists", lists);
+			int res = ts.write(todolist);
+			if(res != 1) throw new Exception("Write List Error");
+			return new ResponseEntity<>("LIST_WRITE_OK", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
+			return new ResponseEntity<>("LIST_WRITE_ERR", HttpStatus.BAD_REQUEST);
 		}
-		return "todolist";
 	}
 	
 	//할일목록 제목 수정
-	@GetMapping("/modify")
-	public String modify(Integer lno, String title, HttpSession session, Model m) {
-		m.addAttribute("sessionId", session.getAttribute("id")+"");
-		String id = session.getAttribute("id")+"";
+//	@GetMapping("/modify")
+//	public String modify(Integer lno, String title, HttpSession session, Model m) {
+//		List<Todolist> lists = null;
+//		Todolist todolist = new Todolist();
+//		todolist.setUserId(session.getAttribute("id")+"");
+//		m.addAttribute("sessionId", session.getAttribute("id")+"");
+//		try {
+//			Map map = new HashMap();
+//			map.put("id", session.getAttribute("id")+"");
+//			map.put("title", title);
+//			map.put("lno", lno);
+//			int res = ts.modify(map);
+//			lists = ts.getLists(todolist);
+//			m.addAttribute("lists", lists);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return "redirect:/todolist/main";
+//		}
+//		return "todolist";
+//	}
+	
+	//할일목록 제목 수정 ajax
+	@PatchMapping("/lists")
+	@ResponseBody
+	public ResponseEntity<String> modifyLists(@RequestBody Todolist todolist, HttpSession session) {
 		try {
-			Map map = new HashMap();
-			map.put("id", id);
-			map.put("title", title);
-			map.put("lno", lno);
-			int res = ts.modify(map);
-			List<Todolist> lists = ts.getLists(map);
-			m.addAttribute("lists", lists);
+			int res = ts.modify(todolist);
+			if(res != 1) throw new Exception("List Modify Error");
+			return new ResponseEntity<>("LIST_MODIFY_OK", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "redirect:/todolist/main";
+			return new ResponseEntity<>("LIST_MODIFY_ERR", HttpStatus.BAD_REQUEST);
 		}
-		return "todolist";
 	}
 	
-	//할일목록 하나 삭제
-	@GetMapping("/remove")
-	public String remove(Integer lno, HttpSession session, Model m) {
-		m.addAttribute("sessionId", session.getAttribute("id")+"");
-		String id = session.getAttribute("id")+"";
+	//할일 목록 삭제
+	@DeleteMapping("/lists")
+	@ResponseBody
+	public ResponseEntity<String> removeList(@RequestParam Integer lno, HttpSession session) {
+		Todolist todolist = new Todolist();
+		todolist.setLno(lno);
 		try {
-			Map map = new HashMap();
-			map.put("id", id);
-			map.put("lno", lno);
-			int res = ts.remove(map);
-			List<Todolist> lists = ts.getLists(map);
-			m.addAttribute("lists", lists);
+			int res = ts.remove(todolist);
+			if(res != 1) throw new Exception("List Delete Error");
+			return new ResponseEntity<>("LIST_DELETE_OK", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
+			return new ResponseEntity<>("LIST_DELETE_ERR", HttpStatus.BAD_REQUEST);
 		}
-		return "todolist";
 	}
 	
-	//할일목록 전체 삭제
-	@GetMapping("/removeAll")
-	public String removeAll(HttpSession session, Model m) {
-		m.addAttribute("sessionId", session.getAttribute("id")+"");
-		String id = session.getAttribute("id")+"";
+	//할일 목록 전체 삭제
+	@DeleteMapping("/listsAll")
+	@ResponseBody
+	public ResponseEntity<String> removeListAll(HttpSession session) {
+		Todolist todolist = new Todolist();
+		todolist.setUserId(session.getAttribute("id")+"");
 		try {
-			Map map = new HashMap();
-			map.put("id", id);
-			int res = ts.removeAll(map);
-			List<Todolist> lists = ts.getLists(map);
-			m.addAttribute("lists", lists);
+			int res = ts.removeAll(todolist);
+			if(res < 1) throw new Exception("List Delete Error");
+			return new ResponseEntity<>("LIST_DELETE_OK", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
+			return new ResponseEntity<>("LIST_DELETE_ERR", HttpStatus.BAD_REQUEST);
 		}
-		return "todolist";
 	}
 	
 	//목록 끝 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

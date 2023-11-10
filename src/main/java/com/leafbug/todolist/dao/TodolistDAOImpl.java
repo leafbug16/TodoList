@@ -18,8 +18,8 @@ public class TodolistDAOImpl implements TodolistDAO {
 	
 	//유저 아이디에 맞는 할일목록 리스트 가져오기
 	@Override
-	public List<Todolist> selectAll(Map map) throws Exception {
-		return session.selectList(namespace+"selectAll", map);
+	public List<Todolist> selectAll(Todolist todolist) throws Exception {
+		return session.selectList(namespace+"selectAll", todolist);
 	}
 	
 	//할일목록 하나 가져오기
@@ -28,28 +28,28 @@ public class TodolistDAOImpl implements TodolistDAO {
 		return session.selectOne(namespace+"select", lno);
 	}
 	
-	//할일목록 늘리기
+	//할일목록 추가
 	@Override
-	public int insert(Map map) throws Exception {
-		return session.insert(namespace+"insert", map);
+	public int insert(Todolist todolist) throws Exception {
+		return session.insert(namespace+"insert", todolist);
 	}
 	
 	//할일목록 제목 수정
 	@Override
-	public int update(Map map) throws Exception {
-		return session.update(namespace+"update", map);
+	public int update(Todolist todolist) throws Exception {
+		return session.update(namespace+"update", todolist);
 	}
 	
 	//할일목록 하나 삭제
 	@Override
-	public int delete(Map map) throws Exception {
-		return session.delete(namespace+"delete", map);
+	public int delete(Todolist todolist) throws Exception {
+		return session.delete(namespace+"delete", todolist);
 	}
 	
 	//할일목록 전체 삭제
 	@Override
-	public int deleteAll(Map map) throws Exception {
-		return session.delete(namespace+"deleteAll", map);
+	public int deleteAll(Todolist todolist) throws Exception {
+		return session.delete(namespace+"deleteAll", todolist);
 	}
 	
 	//목록 끝 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

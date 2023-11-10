@@ -58,17 +58,17 @@
     
     <script>
     	const lno = ${tl.lno};
-    	const showList = function(lno) {
+    	const showTodo = function(lno) {
     		$("textarea[name=content]").val("");
     		$.ajax({
     			type : "GET",
     			url : "/todolist/todolist/todos?lno="+lno,
 		        success : function(res) {
-		        	$("#todoList").html(toHtml(res));
+		        	$("#todoList").html(toHtmlTodo(res));
 		        },
 		        error : function(request, status, error){ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error+"조회중에러") }
     		});//ajax
-    	}//showList
+    	}//showTodo
     	
     	const showMemo = function(lno) {
     		$("#memo").val("");
@@ -83,7 +83,7 @@
     		});//ajax
     	}
     		
-    	const toHtml = function(todoLists) {
+    	const toHtmlTodo = function(todoLists) {
     		let tmp = "<ul id='todo-ul'>";
     		todoLists.forEach(function(todo){
     			tmp += "<li id='todo-li'>";
@@ -98,7 +98,7 @@
     	}//toHtml
     	
     	$(document).ready(function(){
-    		showList(lno);
+    		showTodo(lno);
     		showMemo(lno);
     		
     		//할일 추가
@@ -114,7 +114,7 @@
     				headers : {"content-type" : "application/json"},
   					data : JSON.stringify({ lno: lno, content: content}),
   					success : function(res) {
-  						showList(lno);
+  						showTodo(lno);
   					},
   					error : function(request, status, error){ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error+"등록 중 에러") }
     			});//ajax
@@ -128,7 +128,7 @@
     				type : "DELETE",
     				url : "/todolist/todolist/todos?tno="+tno,
     				success : function(res) {
-    					showList(lno);
+    					showTodo(lno);
     				},
     				error : function(request, status, error){ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error+"삭제 중 에러") }
     			});//ajax
@@ -159,7 +159,7 @@
     				headers : {"content-type" : "application/json"},
   					data : JSON.stringify({ tno: tno, content: content}),
   					success : function(res){
-  						showList(lno);
+  						showTodo(lno);
   					},
   					error: function(request, status, error){ alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error+"수정 완료 중 에러") }
     			});//ajax
@@ -183,7 +183,7 @@
     		//메모 저장 딜레이 타이머
     		let memoTimer = null;
     		$("#memo").keyup(function() {
-    		    clearTimeout(memoTimer); // 이전 타이머 취소
+    		    clearTimeout(memoTimer); //이전 타이머 취소
     		    
     		    memoTimer = setTimeout(function() {
     		        saveMemo();

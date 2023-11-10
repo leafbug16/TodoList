@@ -17,8 +17,8 @@ public class TodolistServiceImpl implements TodolistService {
 	
 	//유저 아이디에 맞는 할일목록 리스트 가져오기
 	@Override
-	public List<Todolist> getLists(Map map) throws Exception {
-		return tDAO.selectAll(map);
+	public List<Todolist> getLists(Todolist todolist) throws Exception {
+		return tDAO.selectAll(todolist);
 	}
 	
 	//할일목록 하나 가져오기
@@ -29,26 +29,26 @@ public class TodolistServiceImpl implements TodolistService {
 	
 	//할일목록 추가
 	@Override
-	public int write(Map map) throws Exception {
-		return tDAO.insert(map);
+	public int write(Todolist todolist) throws Exception {
+		return tDAO.insert(todolist);
 	}
 	
 	//할일목록 제목 수정
 	@Override
-	public int modify(Map map) throws Exception {
-		return tDAO.update(map);
+	public int modify(Todolist todolist) throws Exception {
+		return tDAO.update(todolist);
 	}
 	
 	//할일목록 하나 삭제
 	@Override
-	public int remove(Map map) throws Exception {
-		return tDAO.delete(map);
+	public int remove(Todolist todolist) throws Exception {
+		return tDAO.delete(todolist);
 	}
 	
 	//할일목록 전체 삭제
 	@Override
-	public int removeAll(Map map) throws Exception {
-		return tDAO.deleteAll(map);
+	public int removeAll(Todolist todolist) throws Exception {
+		return tDAO.deleteAll(todolist);
 	}
 	
 	//목록 끝 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

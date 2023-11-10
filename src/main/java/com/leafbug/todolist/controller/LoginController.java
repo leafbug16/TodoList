@@ -25,7 +25,7 @@ public class LoginController {
 	@GetMapping("/form")
 	public String loginForm(HttpServletRequest request, Model m, HttpSession session) {
 		if(session.getAttribute("id")!=null && !session.getAttribute("id").equals("")) {
-			return "redirect:/todoList/main";
+			return "redirect:/todolist/main";
 		}
 		m.addAttribute("sessionId", session.getAttribute("id")+"");
 		return "index";
@@ -53,7 +53,7 @@ public class LoginController {
 		HttpSession session = request.getSession();
 		session.setAttribute("id", id);
 		session.setMaxInactiveInterval(60*60*24*365);
-		return "redirect:/todoList/main";
+		return "redirect:/todolist/main";
 	}
 	
 	@GetMapping("/logout")

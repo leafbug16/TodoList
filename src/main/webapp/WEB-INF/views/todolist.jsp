@@ -18,6 +18,15 @@
     <c:if test="${sessionId eq 'admin' }">
     	<a href="<c:url value='/board/listAll'/>"> 관리자 페이지</a><br><br>
     </c:if>
-    <a href="<c:url value='/board/writeReport'/>">문의 / bug report</a>   
+    <a href="<c:url value='/board/writeReport'/>">문의 / bug report</a>
+    
+    <!-- 목록 가져오기 테스트 -->
+    <ul>
+    	<c:forEach var="list" items="${lists }">
+    		<li><a href="<c:url value='/todolist/read?lno=${list.lno }'/>">${list.title }</a></li>
+    	</c:forEach>
+    </ul>
+    
+     
 </body>
 </html>

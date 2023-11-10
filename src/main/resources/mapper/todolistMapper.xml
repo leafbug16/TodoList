@@ -17,31 +17,59 @@
 	</select>
 	
 	<!-- 할일목록 늘리기 -->
-	<insert id="insert" parameterType="Todolist">
+	<insert id="insert" parameterType="map">
 		INSERT INTO todolist(userId)
 		VALUES (#{id})
 	</insert>
 	
 	<!-- 할일목록 제목 수정 -->
-	<update id="update" parameterType="Todolist">
+	<update id="update" parameterType="map">
 		UPDATE todolist
 		SET title = #{title}
 		WHERE lno = #{lno}
 	</update>
 	
 	<!-- 할일목록 하나 삭제 -->
-	<delete id="delete" parameterType="Todolist">
+	<delete id="delete" parameterType="map">
 		DELETE FROM todolist
 		WHERE lno = #{lno}
 	</delete>
 	
 	<!-- 할일목록 전체 삭제 -->
-	<delete id="deleteAll" parameterType="Todolist">
+	<delete id="deleteAll" parameterType="map">
 		DELETE FROM todolist
 		WHERE userId = #{id}
 	</delete>
-
-
+	
+	<!-- 목록 끝 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+	
+	<!-- 할일 모두 가져오기 -->
+	<select id="todoSelectAll" parameterType="map" resultType="Todo">
+		SELECT * FROM todo
+		WHERE lno = #{lno}
+	</select>
+	
+	<!-- 할일 추가하기 -->
+	<insert id="todoInsert" parameterType="Todo">
+		INSERT INTO todo(lno, content, userId)
+		VALUES(#{lno}, #{content}, #{userId})
+	</insert>
+	
+	<!-- 할일 수정하기 -->
+	<update id="todoUpdate" parameterType="Todo">
+		UPDATE todo
+		SET content = #{content}
+		WHERE tno = #{tno}
+	</update>
+	
+	<!-- 할일 삭제하기 -->
+	<delete id="todoDelete" parameterType="Todo">
+		DELETE FROM todo
+		WHERE tno = #{tno}
+	</delete>
+	
+	
+	
 </mapper>
 
 

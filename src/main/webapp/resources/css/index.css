@@ -8,15 +8,16 @@ body {
 #wrap-center {
     display: inline-block;
     width: 400px;
-    min-height: 440px;
-    margin-top: 150px;
+    min-height: 300px;
+    margin-top: 100px;
     border: 1px solid black;
+    border-radius: 6px;
 }
 
-/* 아이디 중복체크 */
+/* 로그인 실패 */
 #login-failed-msg-div {
-    margin: 0;
     padding: 0;
+    margin-bottom: 3px;
 }
 
 #login-failed-msg {
@@ -26,33 +27,39 @@ body {
 /* 아이디 입력, 비밀번호 입력 */
 #input-id, #input-pwd {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    padding-top: 10px;
-    padding-bottom: 30px;
-}
-
-#input-pwd {
-    padding-top: 0px;
-}
-
-#input-id label, #input-pwd label {
-    flex-basis: 30%;
-    font-size: 20px;
 }
 
 #input-id input, #input-pwd input {
-    flex-basis: 70%;
-    width: 250px;
-    height: 30px;
-    margin-right: 20px;
+    width: 330px;
+    height: 40px;
     font-size: 17px;
+    padding-left: 10px;
+    outline: none;
+}
+
+#input-id input {
+    border: 1px solid lightgray;
+    border-radius: 6px 6px 0 0;
+    margin-bottom: 1px;
+}
+
+#input-pwd input {
+    border: 1px solid lightgray;
+    border-radius: 0 0 6px 6px;
+}
+
+#input-id input:focus, #input-pwd input:focus {
+    outline: 1px solid #6C7A89;
 }
 
 /* 아이디 기억 */
 #input-remember-id {
     display: flex;
     justify-content: start;
+    position: relative;
+    top: 10px;
 }
 
 #input-remember-id label {
@@ -61,32 +68,43 @@ body {
 }
 
 #input-remember-id input {
-    margin-left: 22px;
+    margin-left: 33px;
 }
 
 /* 버튼(로그인) */
 #input-button {
     display: flex;
     justify-content: center;
-    margin-top: 10px;
+    margin-top: 35px;
+    margin-bottom: 20px;
 }
 
 #input-button button {
-    flex-basis: 90%;
-    height: 40px;
-    background-color: rgb(88, 62, 236);
+    width: 340px;
+    height: 50px;
+    background-color: #354649;
     font-size: 20px;
     font-weight: bolder;
     color: white;
     cursor: pointer;
     border: none;
+    border-radius: 6px;
+}
+
+#title {
+	font-family: 'Asap', sans-serif;
+	color: #354649;
+	font-size: 40px;
+    position: relative;
+    top: 110px;
 }
 
 /* 링크들 */
 #links {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
+    text-align: center;
+    margin-top: 20px;
+    position: relative;
+    left: -10px;
 }
 
 #links a {
@@ -102,7 +120,7 @@ body {
 }
 
 #links a:hover {
-    color: rgb(88, 62, 236);
+    color: #354649;
 }
 
 

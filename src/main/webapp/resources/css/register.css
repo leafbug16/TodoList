@@ -7,10 +7,25 @@ body {
 }
 #wrap-center {
     display: inline-block;
-    width: 470px;
-    min-height: 522px;
-    margin-top: 150px;
-    border: 1px solid black;
+    width: 400px;
+    min-height: 300px;
+    margin-top: 100px;
+    border-radius: 6px;
+}
+
+/* title */
+#title {
+	font-family: 'Asap', sans-serif;
+	color: #354649;
+	font-size: 35px;
+    position: relative;
+    top: 110px;
+    left: -64px;
+}
+
+/* 유효성 검사 메시지 */
+.checked {
+    color: rgb(88, 62, 236) !important;
 }
 
 /* 아이디 중복체크 */
@@ -23,11 +38,9 @@ body {
 #duplicate-id-check {
     color: red;
     position: relative;
-    left: 133px;
-}
-
-.checked {
-    color: rgb(88, 62, 236) !important;
+    left: 30px;
+    top: 8px;
+    font-size: 14px;
 }
 
 /* 비밀번호 유효성 검사 */
@@ -38,9 +51,11 @@ body {
 }
 
 #pwd-msg {
-	color: red;
-	position: relative;
-    left: 132px;
+    color: red;
+    position: relative;
+    left: 30px;
+    top: 8px;
+    font-size: 14px;
 }
 
 /* 비밀번호 확인 */
@@ -51,82 +66,62 @@ body {
 }
 
 #pwd-check-msg {
-	color: red;
-	position: relative;
-    left: 132px;
+    color: red;
+    position: relative;
+    left: 30px;
+    top: 8px;
+    font-size: 14px;
 }
-
-
 
 /* 아이디, 비밀번호, 비밀번호 확인, 이메일 */
 #input-id, #input-pwd, #input-pwd-check, #input-email {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    padding-bottom: 30px;
 }
 
-/* 이메일, 비밀번호만 따로 조정(간격 조절) */
-#input-email {
-    padding-bottom: 5px;
+#input-id input:focus, #input-pwd input:focus,
+#input-pwd-check input:focus, #input-email input:focus {
+    outline: 1px solid #6C7A89;
 }
 
-#input-pwd {
-    padding-top: 0px;
-}
-
-/* input, label 조절 */
-
-#input-id label, #input-pwd label, #input-pwd-check label,
-#input-email label {
-    flex-basis: 30%;
-    font-size: 20px;
-}
-
+/* input 조절 */
 #input-id input, #input-pwd input,
 #input-pwd-check input, #input-email input {
-    flex-basis: 70%;
-    width: 250px;
-    height: 30px;
-    margin-right: 20px;
+    width: 330px;
+    height: 40px;
     font-size: 17px;
-}
-
-/* 이메일 입력 정보 */
-#email-info {
-    display: flex;
-    justify-content: start;
-    text-align: left;
-}
-
-#email-info span {
-    padding-left: 40px;
-    color: gray;
+    padding-left: 10px;
+    border-radius: 6px;
+    margin-top: 10px;
+    border: 1px solid lightgray;
+    outline: none;
 }
 
 /* 버튼(회원가입) */
 #input-button {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 35px;
+    margin-bottom: 20px;
 }
 
 #input-button button {
-    flex-basis: 92%;
-    height: 40px;
-    background-color: rgb(88, 62, 236);
+    width: 340px;
+    height: 50px;
+    background-color: #354649;
     font-size: 20px;
     font-weight: bolder;
     color: white;
     cursor: pointer;
     border: none;
+    border-radius: 6px;
 }
 
-/* 링크들 */
+/* 로그인으로 돌아가기 링크 */
 #login-link-div {
-    text-align: left;
-    margin-top: 10px;
-    margin-left: 160px;
+    text-align: center;
+    margin-top: 20px;
     margin-bottom: 20px;
 }
 
@@ -137,5 +132,5 @@ body {
 }
 
 #login-link-div a:hover {
-    color: rgb(88, 62, 236);
+    color: #354649;
 }

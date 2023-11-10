@@ -10,6 +10,11 @@ body {
     box-sizing: border-box;
 }
 
+textarea {
+	font-family: inherit;
+	font-size: inherit;
+}
+
 /* 전체 구도 */
 #comment-wrap {
     text-align: center;

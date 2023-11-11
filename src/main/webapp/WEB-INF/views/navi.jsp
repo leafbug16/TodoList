@@ -12,6 +12,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <!-- asap -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Asap:wght@700&family=Montserrat&family=Noto+Sans+KR&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="navi-wrap">
@@ -19,7 +23,7 @@
             <div id="header">
                 <!-- 로고 -->
                 <div id="header-logo">
-                    <h1><a href="<c:url value='/'/>">My TodoList</a></h1>
+                    <h1><a href="<c:url value='/'/>" id="title">MY TODOLIST</a></h1>
                 </div>
 
                 <!-- 네비게이션 메뉴 -->
@@ -30,16 +34,14 @@
                         <li><a href="<c:url value='/board/listFree'/>">자유게시판</a></li>
                     </ul>
                 </div>
-
+                
                 <!-- 햄버거 메뉴 -->
                 <button id="header-hamburger">
                     <div id="header-hamburger-ico"></div>
                     <div id="header-dropmenu" class="header-dropmenu-displaynone">
                         <ul id="ul-dropmenu">
-                            <li>${sessionId }</li>
-                            <li><a href="<c:url value='/board/listMyLike'/>">마이페이지</a></li>
+                            <li><a href="<c:url value='/board/listMyLike'/>">${sessionId }</a></li>
                             <li><a href="<c:url value='/board/writeReport'/>">문의/bug report</a></li>
-                            <li><hr/></li>
                             <li><a href="<c:url value='/login/logout'/>">로그아웃</a></li>
                         </ul>
                     </div>
@@ -47,11 +49,11 @@
 
             </div>
 
-            <!-- 헤더 메인 구분선 -->
-            <div id="navi-spacing">
-                <hr>
-            </div>
         </div>
+        <!-- 활성 탭 -->
+        <hr id="guide-active-bar">
+        <hr id="notice-active-bar">
+        <hr id="free-active-bar">
     </div>
     
     <script src="<c:url value='/js/navi.js'/>"></script>

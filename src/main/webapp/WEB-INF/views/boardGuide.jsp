@@ -120,6 +120,13 @@
 		if(msg=="write_ok") alert("성공적으로 등록되었습니다");
 		if(msg=="modify_error") alert("작성자만 수정할 수 있습니다");
 		if(msg=="modify_ok") alert("수정 성공");
+		
+		document.addEventListener('DOMContentLoaded', function() {
+		    const active = document.querySelector("#guide-active-bar");
+		    if(active) {
+		        active.classList.add("guideActive");
+		    }
+		});
 	</script>
 </body>
 

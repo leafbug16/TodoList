@@ -8,11 +8,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My TodoList</title>
+    <title>마이투두리스트 : 자유게시판</title>
     <link rel="stylesheet" href="<c:url value='/css/board.css'/>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/77d5171cb8.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 
 <body>
@@ -33,7 +35,7 @@
                                 <th>번호</th>
                                 <th>제목</th>
                                 <th>글쓴이</th>
-                                <th>등록일</th>
+                                <th>작성일</th>
                                 <th>조회</th>
                                 <th>좋아요</th>
                             </tr>
@@ -43,11 +45,24 @@
                         	<c:forEach var="board" items="${list }">
 	                            <tr>
 	                                <td>${board.bno }</td>
-	                                <td><a href="<c:url value='/board/read?bno=${board.bno }&${ph.sc.queryString }&mode=free'/>">${board.title }
-	                                <c:if test="${board.comments != 0 }"><span id="comments" style="color: gray;">[ ${board.comments } ]</span></c:if></a></td>
+	                                <td class="title" data-url="<c:url value='/board/read?bno=${board.bno }&${ph.sc.queryString }&mode=free'/>">
+						                ${board.title }
+						                <c:if test="${board.comments != 0 }">
+						                    <span id="comments" style="color: gray;">[ ${board.comments } ]</span>
+						                </c:if>
+						            </td>
 	                                <td>${board.writer }</td>
-	                                <fmt:formatDate value="${board.regDate }" type="date" pattern="yyyy-MM-dd HH:mm" var="regDate" />
-	                				<td>${regDate }</td>
+	                                <fmt:formatDate value="${board.regDate }" type="date" pattern="yy/MM/dd HH:mm" var="regDate" />
+	                                <fmt:formatDate value="${board.regDate }" type="time" pattern="HH:mm" var="regTime" />
+	            					<fmt:formatDate value="<%=new java.util.Date()%>" type="date" pattern="yy/MM/dd" var="today" />
+	            					<c:choose>
+						              <c:when test="${regDate eq today }">
+						                <td>${regDate }</td>
+						              </c:when>
+						              <c:otherwise>
+						                <td>${regTime }</td>
+						              </c:otherwise>
+						            </c:choose>
 	                                <td>${board.views }</td>
 	                                <td>${board.likes }</td>
 	                            </tr>
@@ -100,7 +115,7 @@
                         </div>
 
                         <div id="search">
-                            <input type="text" name="keyword" value="${ph.sc.keyword }" placeholder="검색어를 입력하세요">
+                            <input type="text" name="keyword" value="${ph.sc.keyword }" placeholder="검색어를 입력하세요" maxlength="18">
                             <button>검색</button>
                         </div>
                     </div>
@@ -126,6 +141,12 @@
 		        active.classList.add("freeActive");
 		    }
 		});
+		
+	    $(document).ready(function() {
+	        $('.title').on('click', function() {
+	            window.location = $(this).data('url');
+	        });
+	    });
 	</script>
 </body>
 

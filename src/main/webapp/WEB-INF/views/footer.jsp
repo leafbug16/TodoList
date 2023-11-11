@@ -19,7 +19,7 @@
             </div>
 
             <div id="footer-text">
-                My TodoList | author : leafbug16
+                MY TODOLIST | author : leafbug16
             </div>
         </div>
     </div>

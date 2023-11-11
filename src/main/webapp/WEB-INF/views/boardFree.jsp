@@ -9,6 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>마이투두리스트 : 자유게시판</title>
+    <link rel="shortcut icon" href="<c:url value='/img/favicon.ico'/>">
     <link rel="stylesheet" href="<c:url value='/css/board.css'/>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

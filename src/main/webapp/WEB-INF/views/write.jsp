@@ -13,11 +13,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <!-- 퀼 에디터 -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+	<script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
+	<script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
+	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 </head>
 <body>
 	<%@include file="navi.jsp" %>
     <div id="writing-wrap">
         <form id="writing-wrap-center" action="<c:url value='/board/write'/>" method="post" onsubmit="return formCheck(this)">
+        	<input type="hidden" id="content" name="content">
             <!-- 현재 페이지 설명 -->
             <div id="writing-header">
                 <h3>글쓰기</h3>
@@ -52,8 +58,10 @@
 
             <!--게시글 내용-->
             <div id="writing-content">
-            	<textarea name="content" id="textarea-writing-content" placeholder="내용을 입력해주세요"></textarea>
+            	<!--<textarea name="content" id="textarea-writing-content" placeholder="내용을 입력해주세요"></textarea>-->
             </div>
+            
+            <div id="editor-container"></div>
 
             <!--입력완료 버튼-->
             <div id="writing-button">
@@ -69,14 +77,43 @@
 		let msg = "${msg }";
 		if (msg=="write_error") alert("게시글 작성에 실패했습니다");
 		
+
+		
+		var quill = new Quill('#editor-container', {
+            modules: {
+                toolbar: [
+                    [{ header: [1, 2, false] }],
+                    ['bold', 'italic', 'underline'],
+                    ['image', 'code-block']
+                ]
+            },
+            placeholder: '내용을 입력하세요',
+            theme: 'snow'  // or 'bubble'
+        });
+		
 		function formCheck(frm) {
-	      if (frm.title.value.trim() === "" || frm.content.value.trim() === "") {
-	          alert("제목과 내용을 입력해주세요");
-	          return false;
-	      }
-	      return true;
-	  	}
+		    var quillContent = quill.root.innerHTML;
+		    document.querySelector('input[name=content]').value = quillContent;
+
+		    if (frm.title.value.trim() === "" || frm.content.value.trim() === "") {
+		        alert("제목과 내용을 입력해주세요");
+		        return false;
+		    }
+		    return true;
+		}
+
 	</script>
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+

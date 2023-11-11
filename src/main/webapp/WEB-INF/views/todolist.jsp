@@ -6,7 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>My Todolist</title>
+<title>마이투두리스트 : 메인</title>
+<link rel="shortcut icon" href="<c:url value='/img/favicon.ico'/>">
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>

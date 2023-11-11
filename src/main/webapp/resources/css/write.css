@@ -10,6 +10,11 @@ body {
     box-sizing: border-box;
 }
 
+/* 에디터 */
+#editor-container {
+	height: 500px;
+}
+
 /* 전체 구도 */
 #writing-wrap {
     text-align: center;
